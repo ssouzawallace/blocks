@@ -3,25 +3,24 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+	[System.Serializable]
 	public class Connection  {
 		const float kMinimumAttachRadius = 20.0f;
 		public enum ConnectionType {ConnectionTypeMale, ConnectionTypeFemale};
 
+		private Block connectedBlock;
+
 		public Block ownerBlock;
 		public ConnectionType connectionType;
 		public Vector2 relativePosition;
-		public Block connectedBlock;
-		public BlockType acceptableBlockType;
+
+		public BlockType[] acceptableBlockTypes;
 
 		public Connection (Block ownerBlock, Vector2 relativePosition, ConnectionType connectionType) {
 			this.ownerBlock = ownerBlock;
 			this.relativePosition = relativePosition;
 			this.connectionType = connectionType;
-		}
-
-		public void SetAcceptableBlockType (BlockType acceptableBlockType) {
-			this.acceptableBlockType = acceptableBlockType;
 		}
 
 		public Block GetConnectedBlock () {
@@ -39,32 +38,41 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			return Vector2.Distance (this.AbsolutePosition(), connection.AbsolutePosition());
 		}
 		public bool TryAttachWithBlock (Block block) {
-			foreach (Connection connection in block.connections) {
-				if (this.connectionType != connection.connectionType
-				    &&
-					connection.connectedBlock == null
-				    && 
-				    this.connectedBlock == null
-				    && 
-				    (this.acceptableBlockType & block.GetBlockType ()) != BlockType.BlockTypeNone
-				    &&
-					this.DistanceTo (connection) < kMinimumAttachRadius) {
+			bool acceptable = false;
 
-					if (this.ownerBlock.connections.IndexOf(this) == 0) {
-						Vector2 delta =  connection.AbsolutePosition() - this.AbsolutePosition();
-						
-						this.ownerBlock.ApplyDelta(delta);
+			foreach (BlockType blockType in this.acceptableBlockTypes) {
+				if (blockType == block.blockType) {
+					acceptable = true;
+					break;
+				}
+			}
+
+			if (acceptable) {
+				foreach (Connection connection in block.connections) {
+					if (this.connectionType != connection.connectionType
+					    &&
+						connection.connectedBlock == null
+					    && 
+					    this.connectedBlock == null				    
+					    &&
+						this.DistanceTo (connection) < kMinimumAttachRadius) {
+
+						if (this.ownerBlock.connections[0].Equals(this)) {
+							Vector2 delta =  connection.AbsolutePosition() - this.AbsolutePosition();
+							
+							this.ownerBlock.ApplyDelta(delta);
+						}
+						else {
+							Vector2 delta =  this.AbsolutePosition() - connection.AbsolutePosition();						
+
+							block.ApplyDelta(delta);
+						}
+
+						this.connectedBlock = block;
+						connection.connectedBlock = this.ownerBlock;
+
+						return true;
 					}
-					else {
-						Vector2 delta =  this.AbsolutePosition() - connection.AbsolutePosition();						
-
-						block.ApplyDelta(delta);
-					}
-
-					this.connectedBlock = block;
-					connection.connectedBlock = this.ownerBlock;
-
-					return true;
 				}
 			}
 
@@ -82,29 +90,32 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			}
 		}
 	}
-
-	[System.Flags]
+	
 	public enum BlockType {	
-		BlockTypeNone	 		= 0,
-		BlockTypeStart			= 1 << 0, 
-		BlockTypeInscrution		= 1 << 1, 
-		BlockTypeLogic			= 1 << 2,
-		BlockTypeNumeric		= 1 << 3,
-		BlockTypeConditionJoint	= 1 << 4};
-
-	protected ArrayList  connections = new ArrayList();
+		BlockTypeNone,
+		BlockTypeStart,			 
+		BlockTypeInscrution,
+		BlockTypeLogic,
+		BlockTypeNumeric,
+		BlockTypeConditionJoint
+	};
+	
 	protected RectTransform rectTransform;
-	protected BlockType blockType;
+
 	protected Image image;
 	protected Shadow shadow;
-
 	public bool leaveClone = false;
+
+	public Connection[] connections;
+
+	public BlockType blockType;
+
+	[TextArea(3,5)]
+	public string codeFormat;
 
 	public BlockType GetBlockType () {
 		return this.blockType;				
 	}
-
-	protected abstract void CreateConnections ();
 
 	protected void Start () {
 		this.rectTransform 	= gameObject.GetComponent <RectTransform> ();
@@ -112,11 +123,10 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		this.shadow 			= gameObject.GetComponent <Shadow> ();
 
 		this.shadow.enabled = false;
-
-		this.CreateConnections ();
 	}
 
 	void OnDrawGizmos() {
+		if (!Application.isPlaying) return;
 
 		foreach (Connection connection in this.connections) {
 			if (connection.connectionType == Connection.ConnectionType.ConnectionTypeMale) {
@@ -167,7 +177,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		ArrayList arrayList = new ArrayList ();
 		arrayList.Add (this);
 
-		for (int i = 1; i < this.connections.Count; ++i) {
+		for (int i = 1; i < this.connections.Length; ++i) {
 			Connection connection = this.connections[i] as Connection;
 
 			if (connection.GetConnectedBlock() != null && connection.GetConnectedBlock().Equals(this) == false) {
@@ -179,6 +189,11 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		}
 
 		return arrayList;
+	}
+
+	public string GetCode () {
+	
+		return "";
 	}
 
 	#region Drag

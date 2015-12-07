@@ -5,11 +5,23 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PalleteExpand : MonoBehaviour {
 	LayoutElement[] childrenLayoutElements;
+	Button[]		childrenButtons;
 
 	public int indexOfExpandedSection = 1;
 		
 	void Start () {
-		childrenLayoutElements = gameObject.GetComponentsInChildren<LayoutElement> ();
+		childrenLayoutElements 	= gameObject.GetComponentsInChildren<LayoutElement> ();
+		childrenButtons	 		= gameObject.GetComponentsInChildren<Button> ();
+
+		int i = 0;
+		foreach (Button button in childrenButtons) {
+			int index = i;
+			button.onClick.AddListener(() => {
+				Debug.Log(index);
+				SectionTapped(index);
+			});
+			i++;
+		}
 	}
 	
 	// Update is called once per frame
@@ -33,5 +45,9 @@ public class PalleteExpand : MonoBehaviour {
 				}	
 			}
 		}
+	}
+
+	void SectionTapped (int index) {
+		this.indexOfExpandedSection = index;
 	}
 }
