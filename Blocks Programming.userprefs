@@ -1,10 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Programming/PalleteExpand.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Programming/Block.cs">
     <Files>
-      <File FileName="Assets/Scripts/Programming/PalleteSection.cs" Line="9" Column="30" />
-      <File FileName="Assets/Scripts/Programming/BlocksPallete.cs" Line="51" Column="29" />
-      <File FileName="Assets/Scripts/Programming/PalleteExpand.cs" Line="20" Column="12" />
+      <File FileName="Assets/Scripts/Programming/Block.cs" Line="217" Column="20" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,9 +10,7 @@
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Scripts" expanded="True">
               <Node name="Programming" expanded="True">
-                <Node name="Block Subclasses" expanded="True">
-                  <Node name="ComparatorBlock.cs" selected="True" />
-                </Node>
+                <Node name="Block.cs" selected="True" />
               </Node>
             </Node>
           </Node>

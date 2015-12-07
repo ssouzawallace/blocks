@@ -32,17 +32,9 @@ public class PalleteExpand : MonoBehaviour {
 
 			if (i == this.indexOfExpandedSection) {
 				element.flexibleHeight = 1;
-
-				foreach (Image image in images) {
-					image.enabled = true;
-				}	
 			}
 			else {
-				element.flexibleHeight = 0;
-				
-				foreach (Image image in images) {
-					image.enabled = false;
-				}	
+				element.flexibleHeight = 0;	
 			}
 		}
 	}

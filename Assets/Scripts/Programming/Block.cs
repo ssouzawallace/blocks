@@ -192,8 +192,36 @@ public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	}
 
 	public string GetCode () {
+		string formatCopy = string.Copy(this.codeFormat);
+
+		for (int i = 0; i < this.codeFormat.Length; ++i) {
+			char ch = this.codeFormat[i];
+
+			if (ch == '$') {
+				string toReplace = "";
+
+				while (i < this.codeFormat.Length && (this.codeFormat[i] == '$' || char.IsNumber(this.codeFormat[i]) || char.IsLetter(this.codeFormat[i]))) {
+					toReplace += this.codeFormat[i];
+					i++;
+				}
+
+				string removeString = "$c";
+				string indexString = toReplace.Remove(toReplace.IndexOf(removeString),removeString.Length);
+				int indexOfConnection = System.Int32.Parse(indexString);
+
+				if (this.connections[indexOfConnection].GetConnectedBlock() != null) {
+					formatCopy = formatCopy.Replace(toReplace, this.connections[indexOfConnection].GetConnectedBlock().GetCode());
+				}
+				else {
+					if (formatCopy.IndexOf(toReplace)-1 >= 0 && formatCopy[formatCopy.IndexOf(toReplace)-1] == '\n') {
+						formatCopy = formatCopy.Remove(formatCopy.IndexOf(toReplace)-1, 1);
+					}
+					formatCopy = formatCopy.Replace(toReplace, "");
+				}
+			}
+		}
 	
-		return "";
+		return formatCopy;
 	}
 
 	#region Drag
@@ -278,6 +306,8 @@ public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 				break;
 			}
 		}
+
+		Debug.Log (GetCode ());
 	}
 
 	#endregion
