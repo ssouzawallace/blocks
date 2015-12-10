@@ -28,7 +28,6 @@ public class PalleteExpand : MonoBehaviour {
 	void Update () {
 		for (int i = 0; i < this.childrenLayoutElements.Length; ++i) {
 			LayoutElement element = this.childrenLayoutElements[i];
-			Image[] images = element.gameObject.GetComponentsInChildren<Image>();
 
 			if (i == this.indexOfExpandedSection) {
 				element.flexibleHeight = 1;
