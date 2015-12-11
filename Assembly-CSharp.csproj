@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Programming\Blocks\Block.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\ComparatorBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\IfThenBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\IfThenElseThenBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\SimpleInstructionBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\BlocksPallete.cs" />
      <Compile Include="Assets\Scripts\Programming\CanvasScript.cs" />
