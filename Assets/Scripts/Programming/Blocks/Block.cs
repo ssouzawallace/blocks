@@ -4,27 +4,48 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
-	[System.Serializable]
+
 	public class Connection  {
 		const float kMinimumAttachRadius = 20.0f;
-		public enum ConnectionType {ConnectionTypeMale, ConnectionTypeFemale};
 
-		private Block connectedBlock;
+		public enum SocketType {SocketTypeMale, SocketTypeFemale};
+		public enum ConnectionType {ConnectionTypeRegular, ConnectionTypeLogic, ConnectionTypeNumber};
 
-		public Block ownerBlock;
-		public ConnectionType connectionType;
-		public Vector2 relativePosition;
+		private Block 			attachedBlock;
+		private Connection 		attachedConnection;
 
-		public BlockType[] acceptableBlockTypes;
+		private Block 			ownerBlock;
 
-		public Connection (Block ownerBlock, Vector2 relativePosition, ConnectionType connectionType) {
-			this.ownerBlock = ownerBlock;
-			this.relativePosition = relativePosition;
-			this.connectionType = connectionType;
+		private SocketType 		socketType;
+		private ConnectionType 	connectionType;
+		private Vector2 		relativePosition;
+
+		public Connection (Block ownerBlock, SocketType socketType, ConnectionType connectionType, Vector2 relativePosition) {
+			this.ownerBlock 		= ownerBlock;
+
+			this.socketType 		= socketType;
+			this.connectionType 	= connectionType;
+			this.relativePosition 	= relativePosition;
 		}
 
-		public Block GetConnectedBlock () {
-			return this.connectedBlock;
+		public SocketType GetSocketType() {
+			return this.socketType;
+		}
+
+		public Block GetAttachedBlock () {
+			return this.attachedBlock;
+		}
+		public void Attach(Block block, Connection connection) {
+			this.attachedBlock 		= block;
+			this.attachedConnection = connection;
+		}
+		public void Detach() {
+			if (this.attachedBlock != null) {
+				this.attachedBlock = null;
+
+				this.attachedConnection.Detach();
+				this.attachedConnection = null;
+			}
 		}
 
 		public Vector2 AbsolutePosition() {
@@ -38,67 +59,39 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			return Vector2.Distance (this.AbsolutePosition(), connection.AbsolutePosition());
 		}
 		public bool TryAttachWithBlock (Block block) {
-			bool acceptable = false;
 
-			foreach (BlockType blockType in this.acceptableBlockTypes) {
-				if (blockType == block.blockType) {
-					acceptable = true;
-					break;
-				}
-			}
+			foreach (Connection connection in block.connections) {
+				if (this.socketType != connection.socketType
+				    &&
+				    this.connectionType == connection.connectionType
+				    &&
+					connection.GetAttachedBlock() == null
+				    && 
+				    this.GetAttachedBlock() == null				    
+				    &&
+					this.DistanceTo (connection) < kMinimumAttachRadius) {
 
-			if (acceptable) {
-				foreach (Connection connection in block.connections) {
-					if (this.connectionType != connection.connectionType
-					    &&
-						connection.connectedBlock == null
-					    && 
-					    this.connectedBlock == null				    
-					    &&
-						this.DistanceTo (connection) < kMinimumAttachRadius) {
-
-						if (this.ownerBlock.connections[0].Equals(this)) {
-							Vector2 delta =  connection.AbsolutePosition() - this.AbsolutePosition();
-							
-							this.ownerBlock.ApplyDelta(delta);
-						}
-						else {
-							Vector2 delta =  this.AbsolutePosition() - connection.AbsolutePosition();						
-
-							block.ApplyDelta(delta);
-						}
-
-						this.connectedBlock = block;
-						connection.connectedBlock = this.ownerBlock;
-
-						return true;
+					if (this.ownerBlock.connections[0].Equals(this)) {
+						Vector2 delta =  connection.AbsolutePosition() - this.AbsolutePosition();
+						
+						this.ownerBlock.ApplyDelta(delta);
 					}
+					else {
+						Vector2 delta =  this.AbsolutePosition() - connection.AbsolutePosition();						
+
+						block.ApplyDelta(delta);
+					}
+
+					this.attachedBlock = block;
+					connection.attachedBlock = this.ownerBlock;
+
+					return true;
 				}
 			}
 
 			return false;
 		}
-		public void Detach() {
-			if (this.connectedBlock != null) {
-				foreach (Connection connection in this.connectedBlock.connections) {
-					if (connection.connectedBlock != null && connection.connectedBlock.Equals (this.ownerBlock)) {
-						connection.connectedBlock = null;
-						break;
-					}
-				}
-				this.connectedBlock = null;
-			}
-		}
 	}
-	
-	public enum BlockType {	
-		BlockTypeNone,
-		BlockTypeStart,			 
-		BlockTypeInscrution,
-		BlockTypeLogic,
-		BlockTypeNumeric,
-		BlockTypeConditionJoint
-	};
 	
 	protected RectTransform rectTransform;
 
@@ -107,11 +100,6 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	protected ArrayList connections = new ArrayList();
 
 	public bool leaveClone = false;
-	public BlockType blockType;
-
-	public BlockType GetBlockType () {
-		return this.blockType;				
-	}
 
 	public virtual void Start () {
 		this.rectTransform 	= gameObject.GetComponent <RectTransform> ();
@@ -125,7 +113,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		if (!Application.isPlaying) return;
 
 		foreach (Connection connection in this.connections) {
-			if (connection.connectionType == Connection.ConnectionType.ConnectionTypeMale) {
+			if (connection.GetSocketType() == Connection.SocketType.SocketTypeMale) {
 				Gizmos.color = Color.blue;
 			}
 			else {
@@ -176,8 +164,8 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		for (int i = 1; i < this.connections.Count; ++i) {
 			Connection connection = this.connections[i] as Connection;
 
-			if (connection.GetConnectedBlock() != null && connection.GetConnectedBlock().Equals(this) == false) {
-				ArrayList descendingBlocks = connection.GetConnectedBlock().DescendingBlocks();
+			if (connection.GetAttachedBlock() != null && connection.GetAttachedBlock().Equals(this) == false) {
+				ArrayList descendingBlocks = connection.GetAttachedBlock().DescendingBlocks();
 				foreach (Block block in descendingBlocks) {
 					arrayList.Add(block);
 				}

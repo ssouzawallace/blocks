@@ -9,12 +9,8 @@ public class SimpleInstructionBlock : Block {
 	new void Start () {
 		base.Start ();
 
-		Connection connectionTop 	= new Connection (this, new Vector2 (35, 40), Connection.ConnectionType.ConnectionTypeFemale);
-		Connection connectionNext 	= new Connection (this, new Vector2 (35, 4), Connection.ConnectionType.ConnectionTypeMale);
-
-
-		this.connections.Add(connectionTop);
-		this.connections.Add(connectionNext);
+		this.connections.Add(new Connection(this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 40)));
+		this.connections.Add(new Connection(this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 4)));
 	}
 
 	public override string GetCode () {
@@ -22,8 +18,8 @@ public class SimpleInstructionBlock : Block {
 
 		Connection connectionNext = this.connections[this.connections.Count-1] as Connection;
 
-		if (connectionNext.GetConnectedBlock () != null) {
-			toReturn += "\n" + connectionNext.GetConnectedBlock().GetCode();
+		if (connectionNext.GetAttachedBlock () != null) {
+			toReturn += "\n" + connectionNext.GetAttachedBlock().GetCode();
 		}
 
 		return toReturn;
