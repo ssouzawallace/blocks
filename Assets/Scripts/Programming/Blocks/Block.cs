@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 	[System.Serializable]
 	public class Connection  {
 		const float kMinimumAttachRadius = 20.0f;
@@ -104,20 +104,16 @@ public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
 	protected Image image;
 	protected Shadow shadow;
+	protected ArrayList connections = new ArrayList();
+
 	public bool leaveClone = false;
-
-	public Connection[] connections;
-
 	public BlockType blockType;
-
-	[TextArea(3,5)]
-	public string codeFormat;
 
 	public BlockType GetBlockType () {
 		return this.blockType;				
 	}
 
-	protected void Start () {
+	public virtual void Start () {
 		this.rectTransform 	= gameObject.GetComponent <RectTransform> ();
 		this.image 			= gameObject.GetComponent <Image> ();
 		this.shadow 			= gameObject.GetComponent <Shadow> ();
@@ -177,7 +173,7 @@ public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 		ArrayList arrayList = new ArrayList ();
 		arrayList.Add (this);
 
-		for (int i = 1; i < this.connections.Length; ++i) {
+		for (int i = 1; i < this.connections.Count; ++i) {
 			Connection connection = this.connections[i] as Connection;
 
 			if (connection.GetConnectedBlock() != null && connection.GetConnectedBlock().Equals(this) == false) {
@@ -191,38 +187,11 @@ public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 		return arrayList;
 	}
 
-	public string GetCode () {
-		string formatCopy = string.Copy(this.codeFormat);
+	#region Abstract
 
-		for (int i = 0; i < this.codeFormat.Length; ++i) {
-			char ch = this.codeFormat[i];
+	public abstract string GetCode ();
 
-			if (ch == '$') {
-				string toReplace = "";
-
-				while (i < this.codeFormat.Length && (this.codeFormat[i] == '$' || char.IsNumber(this.codeFormat[i]) || char.IsLetter(this.codeFormat[i]))) {
-					toReplace += this.codeFormat[i];
-					i++;
-				}
-
-				string removeString = "$c";
-				string indexString = toReplace.Remove(toReplace.IndexOf(removeString),removeString.Length);
-				int indexOfConnection = System.Int32.Parse(indexString);
-
-				if (this.connections[indexOfConnection].GetConnectedBlock() != null) {
-					formatCopy = formatCopy.Replace(toReplace, this.connections[indexOfConnection].GetConnectedBlock().GetCode());
-				}
-				else {
-					if (formatCopy.IndexOf(toReplace)-1 >= 0 && formatCopy[formatCopy.IndexOf(toReplace)-1] == '\n') {
-						formatCopy = formatCopy.Remove(formatCopy.IndexOf(toReplace)-1, 1);
-					}
-					formatCopy = formatCopy.Replace(toReplace, "");
-				}
-			}
-		}
-	
-		return formatCopy;
-	}
+	#endregion
 
 	#region Drag
 	
