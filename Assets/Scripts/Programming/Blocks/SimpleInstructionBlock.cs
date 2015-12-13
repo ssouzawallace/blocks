@@ -12,8 +12,8 @@ public class SimpleInstructionBlock : Block {
 	public override void Start () {
 		base.Start ();
 
-		this.connectionTop  = new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 40));
-		this.connectionNext = new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 4));
+		this.connectionTop  = new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 0));
+		this.connectionNext = new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, -37));
 
 		this.connections.Add(connectionTop);
 		this.connections.Add(connectionNext);

@@ -11,12 +11,13 @@ public class IfThenBlock : Block {
 	public override void Start () {
 		base.Start ();
 
-		this.connectionTop 			= new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 83));
+		this.connectionTop 			= new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 0));
 
-		this.connectionNext 		= new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 83));
-		this.connectionThen 		= new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 83));
+		this.connectionNext 		= new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, -88));
 
-		this.connectionCondition 	= new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeLogic, new Vector2 (35, 83));
+		this.connectionThen 		= new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (104.5f, -38));
+
+		this.connectionCondition 	= new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeLogic, new Vector2 (70, -20));
 
 		this.connections.Add (connectionTop);
 		this.connections.Add (connectionNext);
@@ -37,7 +38,11 @@ public class IfThenBlock : Block {
 			toReturn += this.connectionThen.GetAttachedBlock ().GetCode();
 		}
 
-		toReturn += "]";
+		toReturn += "\n]";
+
+		if (this.connectionNext.GetAttachedBlock () != null) {
+			toReturn += this.connectionNext.GetAttachedBlock().GetCode();
+		}
 
 		return toReturn;
 	}

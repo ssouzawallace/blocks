@@ -4,13 +4,20 @@ using UnityEngine.UI;
 
 [System.Serializable]
 public class PalleteExpand : MonoBehaviour {
-	LayoutElement[] childrenLayoutElements;
+	ArrayList childrenLayoutElements = new ArrayList ();
 	Button[]		childrenButtons;
 
 	public int indexOfExpandedSection = 1;
 		
 	void Start () {
-		childrenLayoutElements 	= gameObject.GetComponentsInChildren<LayoutElement> ();
+		Transform[] childrenTransforms = this.gameObject.GetComponentsInChildren<Transform> ();
+
+		foreach (Transform transf in childrenTransforms) {
+			if (transf.parent == this.transform) {
+				childrenLayoutElements.Add(transf.GetComponent<LayoutElement>());
+			}
+		}
+
 		childrenButtons	 		= gameObject.GetComponentsInChildren<Button> ();
 
 		int i = 0;
@@ -26,8 +33,9 @@ public class PalleteExpand : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		for (int i = 0; i < this.childrenLayoutElements.Length; ++i) {
-			LayoutElement element = this.childrenLayoutElements[i];
+
+		for (int i = 0; i < this.childrenLayoutElements.Count; ++i) {
+			LayoutElement element = this.childrenLayoutElements[i] as LayoutElement;
 
 			if (i == this.indexOfExpandedSection) {
 				element.flexibleHeight = 1;

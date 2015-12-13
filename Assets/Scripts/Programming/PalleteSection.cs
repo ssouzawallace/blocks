@@ -4,17 +4,23 @@ using UnityEngine.UI;
 
 public class PalleteSection : MonoBehaviour {
 
+
 	// Use this for initialization
 	void Start () {
-		Image[] images = GetComponentsInChildren<Image> ();
 		float totalHeight = 0.0f;
-
-		foreach (Image image in images) {
-			totalHeight += image.preferredHeight;
+		int cont = 0;
+		LayoutElement[] childrenLayoutElements = this.gameObject.GetComponentsInChildren<LayoutElement> ();
+		
+		foreach (LayoutElement layoutElement in childrenLayoutElements) {
+			if (layoutElement.transform.parent == this.transform) {
+				totalHeight += layoutElement.minHeight;
+				cont++;
+			}
 		}
+
 		VerticalLayoutGroup verticalLayGroup = GetComponent <VerticalLayoutGroup> ();
 		totalHeight += verticalLayGroup.padding.top;
-		totalHeight += verticalLayGroup.spacing * (images.Length - 1);
+		totalHeight += verticalLayGroup.spacing * (cont);
 
 		GetComponent<RectTransform> ().sizeDelta = new Vector2(0, totalHeight);
 	}

@@ -36,8 +36,12 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			return this.attachedBlock;
 		}
 		public void Attach(Block block, Connection connection) {
-			this.attachedBlock 		= block;
-			this.attachedConnection = connection;
+			if (this.attachedBlock == null) {
+				this.attachedBlock = block;
+				this.attachedConnection = connection;
+
+				connection.Attach (this.ownerBlock, this);
+			}
 		}
 		public void Detach() {
 			if (this.attachedBlock != null) {
@@ -50,10 +54,8 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
 		public Vector2 AbsolutePosition() {
 			float parentScale = this.ownerBlock.transform.parent.GetComponent<RectTransform> ().localScale.x;
-			return new Vector2 (this.ownerBlock.transform.position.x, this.ownerBlock.transform.position.y)
-				+ new Vector2 ((this.relativePosition.x - this.ownerBlock.rectTransform.sizeDelta.x / 2) * parentScale, 
-				               (this.relativePosition.y - this.ownerBlock.rectTransform.sizeDelta.y / 2) * parentScale);
-					
+
+			return new Vector2(this.ownerBlock.transform.position.x, this.ownerBlock.transform.position.y) + this.relativePosition*parentScale;
 		}
 		float DistanceTo(Connection connection) {
 			return Vector2.Distance (this.AbsolutePosition(), connection.AbsolutePosition());
@@ -82,8 +84,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 						block.ApplyDelta(delta);
 					}
 
-					this.attachedBlock = block;
-					connection.attachedBlock = this.ownerBlock;
+					this.Attach(block, connection);
 
 					return true;
 				}
@@ -96,7 +97,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	protected RectTransform rectTransform;
 
 	protected Image image;
-	protected Shadow shadow;
+	protected Shadow[] shadows;
 	protected ArrayList connections = new ArrayList();
 
 	public bool leaveClone = false;
@@ -104,9 +105,11 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	public virtual void Start () {
 		this.rectTransform 	= gameObject.GetComponent <RectTransform> ();
 		this.image 			= gameObject.GetComponent <Image> ();
-		this.shadow 			= gameObject.GetComponent <Shadow> ();
+		this.shadows 			= gameObject.GetComponentsInChildren <Shadow> ();
 
-		this.shadow.enabled = false;
+		foreach (Shadow shadow in this.shadows) {
+			shadow.enabled = false;
+		}
 	}
 
 	void OnDrawGizmos() {
@@ -124,7 +127,9 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public void SetShadowActive (bool active) {
-		this.shadow.enabled = active;
+		foreach (Shadow shadow in this.shadows) {
+			shadow.enabled = active;
+		}
 	}
 	
 	public void Detach () {
@@ -136,7 +141,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		ArrayList descendingBlocks = this.DescendingBlocks ();
 
 		foreach (Block block in descendingBlocks) {
-			block.transform.position = block.transform.position + new Vector3 (delta.x, delta.y);
+			block.transform.position += new Vector3 (delta.x, delta.y);
 		}
 	}
 
@@ -192,13 +197,20 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			go.transform.SetParent(this.transform.parent, false);
 			go.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
 
-			this.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);
-			this.leaveClone = false;
+			go.GetComponent<RectTransform>().anchoredPosition 	= this.rectTransform.anchoredPosition;
+			go.GetComponent<RectTransform>().sizeDelta 			= this.rectTransform.sizeDelta;
+			go.GetComponent<RectTransform>().anchorMin  		= this.rectTransform.anchorMin;
+			go.GetComponent<RectTransform>().anchorMax  		= this.rectTransform.anchorMax;
 
-			go.GetComponent<RectTransform>().anchoredPosition = this.rectTransform.anchoredPosition;
-			go.GetComponent<RectTransform>().sizeDelta = this.rectTransform.sizeDelta;
-			go.GetComponent<RectTransform>().anchorMin  = this.rectTransform.anchorMin;
-			go.GetComponent<RectTransform>().anchorMax  = this.rectTransform.anchorMax;
+			Vector3 before = this.transform.position;
+
+			this.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);
+
+			Vector3 after = this.transform.position;
+
+			this.transform.position += (before-after);
+
+			this.leaveClone = false;
 		}
 		
 		// Desconecta do bloco acima

@@ -1,0 +1,78 @@
+fileFormatVersion: 2
+guid: df3409f4b4e8e4d8fa84a960c88b85dc
+timeCreated: 1449958970
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: IfThen_0
+    21300002: IfThen_1
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 2
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 230, y: 135, z: 410, w: 240}
+  spritePixelsToUnits: 500
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: IfThen_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 745
+        height: 180
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 575, y: 160, z: 80, w: 0}
+    - name: IfThen_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 180
+        width: 745
+        height: 300
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 575, y: 0, z: 80, w: 240}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
