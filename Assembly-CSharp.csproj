@@ -46,9 +46,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Programming\Blocks\Block.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\BlockWithArgument.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\ComparatorBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\ConstantNumberBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\IfThenBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\IfThenElseThenBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\NumberBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\NumberOperationBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\RandomNumberBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\SetSpeedBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\SimpleInstructionBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\BlocksPallete.cs" />
      <Compile Include="Assets\Scripts\Programming\CanvasScript.cs" />

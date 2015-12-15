@@ -6,8 +6,8 @@ public class SimpleInstructionBlock : Block {
 	[TextArea(2,3)]
 	public string instruction;
 
-	private Connection connectionTop;
-	private Connection connectionNext;
+	protected Connection connectionTop;
+	protected Connection connectionNext;
 
 	public override void Start () {
 		base.Start ();

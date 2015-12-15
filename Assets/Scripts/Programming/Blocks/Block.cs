@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -20,12 +21,18 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		private ConnectionType 	connectionType;
 		private Vector2 		relativePosition;
 
+		public event Action<Connection> attachmentChangedEvent;
+
 		public Connection (Block ownerBlock, SocketType socketType, ConnectionType connectionType, Vector2 relativePosition) {
 			this.ownerBlock 		= ownerBlock;
 
 			this.socketType 		= socketType;
 			this.connectionType 	= connectionType;
 			this.relativePosition 	= relativePosition;
+		}
+
+		public void SetRelativePosition(Vector2 relativePosition) {
+			this.relativePosition = relativePosition;
 		}
 
 		public SocketType GetSocketType() {
@@ -41,6 +48,10 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 				this.attachedConnection = connection;
 
 				connection.Attach (this.ownerBlock, this);
+
+				if (attachmentChangedEvent != null) {
+					attachmentChangedEvent(this);
+				}
 			}
 		}
 		public void Detach() {
@@ -49,6 +60,10 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
 				this.attachedConnection.Detach();
 				this.attachedConnection = null;
+
+				if (attachmentChangedEvent != null) {
+					attachmentChangedEvent(this);
+				}
 			}
 		}
 
@@ -70,6 +85,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 					connection.GetAttachedBlock() == null
 				    && 
 				    this.GetAttachedBlock() == null				    
+				    && !(this.ownerBlock.connections.IndexOf(this) == 0 && block.connections.IndexOf(connection) == 0)
 				    &&
 					this.DistanceTo (connection) < kMinimumAttachRadius) {
 
@@ -93,8 +109,11 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			return false;
 		}
 	}
-	
-	protected RectTransform rectTransform;
+
+	[HideInInspector]
+	public RectTransform rectTransform;
+	[HideInInspector]
+	public LayoutElement layoutElement;
 
 	protected Image image;
 	protected Shadow[] shadows;
@@ -104,6 +123,8 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
 	public virtual void Start () {
 		this.rectTransform 	= gameObject.GetComponent <RectTransform> ();
+		this.layoutElement 	= gameObject.GetComponent <LayoutElement> ();
+
 		this.image 			= gameObject.GetComponent <Image> ();
 		this.shadows 			= gameObject.GetComponentsInChildren <Shadow> ();
 
@@ -189,6 +210,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	#region Drag
 	
 	public void OnBeginDrag (PointerEventData eventData) {
+
 		if (this.leaveClone == true) {
 			GameObject go = Instantiate(this.gameObject);
 
@@ -202,16 +224,14 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			go.GetComponent<RectTransform>().anchorMin  		= this.rectTransform.anchorMin;
 			go.GetComponent<RectTransform>().anchorMax  		= this.rectTransform.anchorMax;
 
-			Vector3 before = this.transform.position;
-
-			this.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);
-
-			Vector3 after = this.transform.position;
-
-			this.transform.position += (before-after);
-
 			this.leaveClone = false;
 		}
+
+		// Coloca Bloco no topo
+		Vector3 before = this.transform.position;		
+		this.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);		
+		Vector3 after = this.transform.position;		
+		this.transform.position += (before-after);
 		
 		// Desconecta do bloco acima
 		this.Detach ();

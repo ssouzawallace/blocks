@@ -17,7 +17,7 @@ public class IfThenBlock : Block {
 
 		this.connectionThen 		= new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (104.5f, -38));
 
-		this.connectionCondition 	= new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeLogic, new Vector2 (70, -20));
+		this.connectionCondition 	= new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeLogic, new Vector2 (71, -20));
 
 		this.connections.Add (connectionTop);
 		this.connections.Add (connectionNext);
