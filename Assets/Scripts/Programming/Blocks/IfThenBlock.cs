@@ -46,4 +46,42 @@ public class IfThenBlock : Block {
 
 		return toReturn;
 	}
+
+	public override void HierarchyChanged () {
+		base.HierarchyChanged ();
+		
+		ThenAttachmentMayChanged ();
+	}
+	
+	void ThenAttachmentMayChanged () {
+		if (this.connectionThen.GetAttachedBlock () == null) {
+			this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.layoutElement.minHeight);
+		}
+		else {
+			float argumentHeight = 0.0f;
+			float delta = this.rectTransform.rect.height;
+
+			ArrayList descendingBlocks = this.connectionThen.GetAttachedBlock().DescendingBlocks();
+			foreach (Block block in descendingBlocks) {
+
+				argumentHeight += block.rectTransform.rect.height;
+			}
+
+			float singleInstructionHeight = (descendingBlocks[0] as Block).rectTransform.rect.height;
+			float height = this.layoutElement.minHeight + (argumentHeight - singleInstructionHeight);
+
+			if (height > this.layoutElement.minHeight-8) {
+				this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height-8);
+			}
+
+
+			delta -= height;
+
+			this.connectionNext.SetRelativePosition(new Vector2(35, -this.rectTransform.rect.height +8));
+
+			if (this.connectionNext.GetAttachedBlock() != null) {
+				this.connectionNext.GetAttachedBlock().ApplyDelta(new Vector2(0, delta));
+			}
+		}
+	}
 }

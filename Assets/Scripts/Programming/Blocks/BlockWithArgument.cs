@@ -6,6 +6,7 @@ public abstract class BlockWithArgument : SimpleInstructionBlock {
 	RectTransform argumentRectTransform;
 
 	protected Connection argumentConnection;
+	private float minimumArgumentWidth;
 	
 	public override void Start () {
 		base.Start ();
@@ -14,6 +15,8 @@ public abstract class BlockWithArgument : SimpleInstructionBlock {
 		foreach (Transform transf in childrenTransforms) {
 			if (transf.gameObject.tag.Equals("Argument")) {
 				argumentRectTransform = transf.gameObject.GetComponent<RectTransform>();
+				minimumArgumentWidth = argumentRectTransform.rect.width;
+
 				break;
 			}
 		}
@@ -21,19 +24,21 @@ public abstract class BlockWithArgument : SimpleInstructionBlock {
 		argumentConnection = new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeNumber, new Vector2 (105, -19));
 
 		this.connections.Add (argumentConnection);
-
-		argumentConnection.attachmentChangedEvent += (Connection obj) => {
-			ArgumentAttachmentChanged();
-		};
 	}
 
 	public override string GetCode () {
 		throw new System.NotImplementedException ();
 	}
 
-	void ArgumentAttachmentChanged () {
+	public override void HierarchyChanged () {
+		base.HierarchyChanged ();
+
+		ArgumentAttachmentMayChanged ();
+	}
+
+	void ArgumentAttachmentMayChanged () {
 		if (this.argumentConnection.GetAttachedBlock () == null) {
-			this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, this.layoutElement.minWidth);		
+			this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, this.layoutElement.minWidth);
 		}
 		else {
 			float argumentWidth = 0.0f;
@@ -43,7 +48,7 @@ public abstract class BlockWithArgument : SimpleInstructionBlock {
 				argumentWidth += block.rectTransform.rect.width;
 			}
 			
-			float width = this.layoutElement.minWidth + (argumentWidth - argumentRectTransform.rect.width);	
+			float width = this.layoutElement.minWidth + (argumentWidth - minimumArgumentWidth);
 			
 			this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
 			

@@ -132,18 +132,11 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			shadow.enabled = false;
 		}
 	}
+	public virtual void HierarchyChanged() {
+		Connection firstConnection = this.connections [0] as Connection;
 
-	void OnDrawGizmos() {
-		if (!Application.isPlaying) return;
-
-		foreach (Connection connection in this.connections) {
-			if (connection.GetSocketType() == Connection.SocketType.SocketTypeMale) {
-				Gizmos.color = Color.blue;
-			}
-			else {
-				Gizmos.color = Color.red;
-			}
-			Gizmos.DrawSphere(connection.AbsolutePosition(), 10);
+		if (firstConnection.GetAttachedBlock () != null) {
+			firstConnection.GetAttachedBlock ().HierarchyChanged();
 		}
 	}
 
@@ -155,7 +148,12 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	
 	public void Detach () {
 		Connection firstConnection = this.connections [0] as Connection;
+		Block previousBlock = firstConnection.GetAttachedBlock ();
 		firstConnection.Detach ();
+
+		if (previousBlock != null) {
+			previousBlock.HierarchyChanged ();
+		}
 	}
 
 	public void ApplyDelta(Vector2 delta) {
@@ -176,6 +174,13 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		foreach (Block aBlock in descendingBlocks) {		
 			foreach (Connection conection in aBlock.connections) {
 				if (conection.TryAttachWithBlock (block)) {
+					Connection firstConnection = this.connections [0] as Connection;
+					Block previousBlock = firstConnection.GetAttachedBlock ();
+
+					if (previousBlock != null) {
+						previousBlock.HierarchyChanged ();
+					}
+
 					return true;
 				}
 			}
@@ -210,31 +215,29 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	#region Drag
 	
 	public void OnBeginDrag (PointerEventData eventData) {
-
 		if (this.leaveClone == true) {
-			GameObject go = Instantiate(this.gameObject);
+			GameObject go = Instantiate (this.gameObject);
 
-			go.GetComponent<Block>().leaveClone = true;
+			go.GetComponent<Block> ().leaveClone = true;
 
-			go.transform.SetParent(this.transform.parent, false);
-			go.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
+			go.transform.SetParent (this.transform.parent, false);
+			go.transform.SetSiblingIndex (this.transform.GetSiblingIndex ());
 
-			go.GetComponent<RectTransform>().anchoredPosition 	= this.rectTransform.anchoredPosition;
-			go.GetComponent<RectTransform>().sizeDelta 			= this.rectTransform.sizeDelta;
-			go.GetComponent<RectTransform>().anchorMin  		= this.rectTransform.anchorMin;
-			go.GetComponent<RectTransform>().anchorMax  		= this.rectTransform.anchorMax;
+			go.GetComponent<RectTransform> ().anchoredPosition = this.rectTransform.anchoredPosition;
+			go.GetComponent<RectTransform> ().sizeDelta = this.rectTransform.sizeDelta;
+			go.GetComponent<RectTransform> ().anchorMin = this.rectTransform.anchorMin;
+			go.GetComponent<RectTransform> ().anchorMax = this.rectTransform.anchorMax;
 
 			this.leaveClone = false;
 		}
 
-		// Coloca Bloco no topo
+		// Desconecta do bloco acima
+		this.Detach ();
+
 		Vector3 before = this.transform.position;		
 		this.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);		
 		Vector3 after = this.transform.position;		
 		this.transform.position += (before-after);
-		
-		// Desconecta do bloco acima
-		this.Detach ();
 
 		// Deixa todos os blocos descendetes no topo da telas
 		ArrayList descendingBlocks = this.DescendingBlocks ();
@@ -273,7 +276,12 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 				this.transform.position = previousPosition;
 			}
 			else {
-				Destroy(this.gameObject);
+				// Coloca blocos no topo
+				ArrayList descending = DescendingBlocks ();
+				foreach (Block b in descending) {
+					Destroy(b.gameObject);
+				}
+
 				return;
 			}
 		}
@@ -301,4 +309,17 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
 	#endregion
 
+	void OnDrawGizmos() {
+		if (!Application.isPlaying) return;
+		
+		foreach (Connection connection in this.connections) {
+			if (connection.GetSocketType() == Connection.SocketType.SocketTypeMale) {
+				Gizmos.color = Color.blue;
+			}
+			else {
+				Gizmos.color = Color.red;
+			}
+			Gizmos.DrawSphere(connection.AbsolutePosition(), 10);
+		}
+	}
 }
