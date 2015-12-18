@@ -21,9 +21,12 @@ public abstract class BlockWithArgument : SimpleInstructionBlock {
 			}
 		}
 
-		argumentConnection = new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeNumber, new Vector2 (105, -19));
+		argumentConnection = new Connection (this, 
+		                                     Connection.SocketType.SocketTypeFemale, 
+		                                     Connection.ConnectionType.ConnectionTypeNumber, 
+		                                     new Vector2 (105, 18));
 
-		this.connections.Add (argumentConnection);
+		this.connections.Insert (1, argumentConnection);
 	}
 
 	public override string GetCode () {

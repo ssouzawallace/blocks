@@ -11,18 +11,36 @@ public class IfThenBlock : Block {
 	public override void Start () {
 		base.Start ();
 
-		this.connectionTop 			= new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, 0));
+		this.connectionTop = new Connection (this, 		                                       
+		                                     Connection.SocketType.SocketTypeFemale, 
+		                                     Connection.ConnectionType.ConnectionTypeRegular, 
+		                                     new Vector2 (35, 0),
+		                                     true,
+		                                     false);
 
-		this.connectionNext 		= new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (35, -88));
+		this.connectionNext = new Connection (this,
+		                                      Connection.SocketType.SocketTypeMale, 
+		                                      Connection.ConnectionType.ConnectionTypeRegular, 
+		                                      new Vector2 (35, 1),
+		                                      true,
+		                                      false);
 
-		this.connectionThen 		= new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeRegular, new Vector2 (104.5f, -38));
+		this.connectionThen = new Connection (this, 
+		                                      Connection.SocketType.SocketTypeMale, 
+		                                      Connection.ConnectionType.ConnectionTypeRegular, 
+		                                      new Vector2 (104.5f, 39));
 
-		this.connectionCondition 	= new Connection (this, Connection.SocketType.SocketTypeFemale, Connection.ConnectionType.ConnectionTypeLogic, new Vector2 (71, -20));
+		this.connectionCondition = new Connection (this, 
+		                                           Connection.SocketType.SocketTypeFemale, 
+		                                           Connection.ConnectionType.ConnectionTypeLogic, 
+		                                           new Vector2 (71, 12));
 
 		this.connections.Add (connectionTop);
-		this.connections.Add (connectionNext);
+
 		this.connections.Add (connectionThen);
 		this.connections.Add (connectionCondition);
+
+		this.connections.Add (connectionNext);
 	}
 
 	public override string GetCode () {
@@ -48,40 +66,29 @@ public class IfThenBlock : Block {
 	}
 
 	public override void HierarchyChanged () {
+		AttachmentsMayChanged ();
+
 		base.HierarchyChanged ();
-		
-		ThenAttachmentMayChanged ();
 	}
 	
-	void ThenAttachmentMayChanged () {
+	protected virtual void AttachmentsMayChanged () {
+		Debug.Log("AUI");
 		if (this.connectionThen.GetAttachedBlock () == null) {
-			this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.layoutElement.minHeight);
+			SetHeight(this.layoutElement.minHeight);
 		}
 		else {
-			float argumentHeight = 0.0f;
-			float delta = this.rectTransform.rect.height;
+			float thenHeight = 0.0f;
 
-			ArrayList descendingBlocks = this.connectionThen.GetAttachedBlock().DescendingBlocks();
-			foreach (Block block in descendingBlocks) {
+			Block block = this.connectionThen.GetAttachedBlock();
 
-				argumentHeight += block.rectTransform.rect.height;
+			while (block != null) {
+				thenHeight += block.rectTransform.rect.height;
+				block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
 			}
 
-			float singleInstructionHeight = (descendingBlocks[0] as Block).rectTransform.rect.height;
-			float height = this.layoutElement.minHeight + (argumentHeight - singleInstructionHeight);
+			float height = this.layoutElement.minHeight + (thenHeight - singleInstructionHeight);
 
-			if (height > this.layoutElement.minHeight-8) {
-				this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height-8);
-			}
-
-
-			delta -= height;
-
-			this.connectionNext.SetRelativePosition(new Vector2(35, -this.rectTransform.rect.height +8));
-
-			if (this.connectionNext.GetAttachedBlock() != null) {
-				this.connectionNext.GetAttachedBlock().ApplyDelta(new Vector2(0, delta));
-			}
+			SetHeight(height);
 		}
 	}
 }

@@ -9,30 +9,32 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	public class Connection  {
 		const float kMinimumAttachRadius = 20.0f;
 
-		public enum SocketType {SocketTypeMale, SocketTypeFemale};
-		public enum ConnectionType {ConnectionTypeRegular, ConnectionTypeLogic, ConnectionTypeNumber};
+		public enum SocketType 				{SocketTypeMale, SocketTypeFemale};
+		public enum ConnectionType		 	{ConnectionTypeRegular, ConnectionTypeLogic, ConnectionTypeNumber};
+		public enum RelativePositionType 	{RelativePositionTypeFactor, RelativePositionTypeAbsolute};
 
 		private Block 			attachedBlock;
-		private Connection 		attachedConnection;
 
 		private Block 			ownerBlock;
 
-		private SocketType 		socketType;
-		private ConnectionType 	connectionType;
-		private Vector2 		relativePosition;
+		private SocketType 				socketType;
+		private ConnectionType 			connectionType;
+		private Vector2 				relativePosition;
 
-		public event Action<Connection> attachmentChangedEvent;
+		private bool	xOffsetType = true;
+		private bool	yOffsetType = true;
 
 		public Connection (Block ownerBlock, SocketType socketType, ConnectionType connectionType, Vector2 relativePosition) {
-			this.ownerBlock 		= ownerBlock;
+			this.ownerBlock 			= ownerBlock;
 
-			this.socketType 		= socketType;
-			this.connectionType 	= connectionType;
-			this.relativePosition 	= relativePosition;
+			this.socketType 			= socketType;
+			this.connectionType 		= connectionType;
+			this.relativePosition 		= relativePosition;
 		}
-
-		public void SetRelativePosition(Vector2 relativePosition) {
-			this.relativePosition = relativePosition;
+		public Connection (Block ownerBlock, SocketType socketType, ConnectionType connectionType, Vector2 relativePosition, bool xOffsetType, bool	yOffsetType) 
+			: this(ownerBlock, socketType, connectionType, relativePosition) {
+			this.xOffsetType = xOffsetType;
+			this.yOffsetType = yOffsetType;
 		}
 
 		public SocketType GetSocketType() {
@@ -42,37 +44,56 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		public Block GetAttachedBlock () {
 			return this.attachedBlock;
 		}
+
+		public void SetRelativePosition(Vector2 relativePosition) {
+			this.relativePosition = relativePosition;
+		}
+		public Vector2 GetRelativePosition() {
+			return this.relativePosition;
+		}
+
 		public void Attach(Block block, Connection connection) {
 			if (this.attachedBlock == null) {
 				this.attachedBlock = block;
-				this.attachedConnection = connection;
 
 				connection.Attach (this.ownerBlock, this);
-
-				if (attachmentChangedEvent != null) {
-					attachmentChangedEvent(this);
-				}
 			}
 		}
 		public void Detach() {
 			if (this.attachedBlock != null) {
+				Connection attachedBlockConnection = null;
+				foreach (Connection c in this.attachedBlock.connections) {
+					if (c.attachedBlock != null && c.attachedBlock.Equals(this.ownerBlock)) {
+						attachedBlockConnection = c;
+					}
+				}
+
 				this.attachedBlock = null;
 
-				this.attachedConnection.Detach();
-				this.attachedConnection = null;
-
-				if (attachmentChangedEvent != null) {
-					attachmentChangedEvent(this);
+				if (attachedBlockConnection != null) {
+					attachedBlockConnection.Detach();				
 				}
 			}
 		}
 
-		public Vector2 AbsolutePosition() {
-			float parentScale = this.ownerBlock.transform.parent.GetComponent<RectTransform> ().localScale.x;
+		public Vector3 AbsolutePosition() {
+			float xOffset = this.relativePosition.x;
+			float yOffset = -this.relativePosition.y;
 
-			return new Vector2(this.ownerBlock.transform.position.x, this.ownerBlock.transform.position.y) + this.relativePosition*parentScale;
+			if (this.xOffsetType == false) {
+				xOffset = this.relativePosition.x*this.ownerBlock.rectTransform.rect.width;
+			}
+
+			if (yOffsetType == false) {
+				yOffset = this.relativePosition.y*(-this.ownerBlock.rectTransform.rect.height);
+			}
+
+			Vector3 offset = new Vector3(xOffset,
+			                             yOffset);
+
+			return this.ownerBlock.transform.position + offset;
 		}
-		float DistanceTo(Connection connection) {
+		public float DistanceTo(Connection connection) {
 			return Vector2.Distance (this.AbsolutePosition(), connection.AbsolutePosition());
 		}
 		public bool TryAttachWithBlock (Block block) {
@@ -110,14 +131,16 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		}
 	}
 
+	public static float singleInstructionHeight = 37;
+
 	[HideInInspector]
 	public RectTransform rectTransform;
 	[HideInInspector]
 	public LayoutElement layoutElement;
+	[HideInInspector]
+	public Shadow[] shadows;
 
-	protected Image image;
-	protected Shadow[] shadows;
-	protected ArrayList connections = new ArrayList();
+	public ArrayList connections = new ArrayList();
 
 	public bool leaveClone = false;
 
@@ -125,13 +148,11 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		this.rectTransform 	= gameObject.GetComponent <RectTransform> ();
 		this.layoutElement 	= gameObject.GetComponent <LayoutElement> ();
 
-		this.image 			= gameObject.GetComponent <Image> ();
-		this.shadows 			= gameObject.GetComponentsInChildren <Shadow> ();
+		this.shadows 		= gameObject.GetComponentsInChildren <Shadow> ();
 
-		foreach (Shadow shadow in this.shadows) {
-			shadow.enabled = false;
-		}
+		SetShadowActive (false);
 	}
+
 	public virtual void HierarchyChanged() {
 		Connection firstConnection = this.connections [0] as Connection;
 
@@ -140,12 +161,6 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		}
 	}
 
-	public void SetShadowActive (bool active) {
-		foreach (Shadow shadow in this.shadows) {
-			shadow.enabled = active;
-		}
-	}
-	
 	public void Detach () {
 		Connection firstConnection = this.connections [0] as Connection;
 		Block previousBlock = firstConnection.GetAttachedBlock ();
@@ -156,12 +171,65 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		}
 	}
 
+	public ArrayList DescendingBlocks () {
+		ArrayList arrayList = new ArrayList ();
+		arrayList.Add (this);
+		
+		for (int i = 1; i < this.connections.Count; ++i) {
+			Connection connection = this.connections[i] as Connection;
+			
+			if (connection.GetAttachedBlock() != null && connection.GetAttachedBlock().Equals(this) == false) {
+				ArrayList descendingBlocks = connection.GetAttachedBlock().DescendingBlocks();
+				foreach (Block block in descendingBlocks) {
+					arrayList.Add(block);
+				}
+			}
+		}
+		
+		return arrayList;
+	}
+
 	public void ApplyDelta(Vector2 delta) {
 		ArrayList descendingBlocks = this.DescendingBlocks ();
 
 		foreach (Block block in descendingBlocks) {
 			block.transform.position += new Vector3 (delta.x, delta.y);
 		}
+	}
+
+	public void SetShadowActive (bool active) {
+		foreach (Shadow shadow in this.shadows) {
+			shadow.enabled = active;
+		}
+	}
+
+	public void SetHeight (float height) {
+		this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+		RefreshDescendingPosition();
+	}
+
+	public void SetWidth (float width) {
+		this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+		RefreshDescendingPosition();
+	}
+
+	void RefreshDescendingPosition() {
+		foreach (Connection c in this.connections) {
+			if (connections.IndexOf(c) == 0) {
+				continue;
+			}
+			
+			if (c.GetAttachedBlock() != null ) {
+				foreach (Connection c1 in c.GetAttachedBlock().connections) {
+					if (c1.GetAttachedBlock() != null && c1.GetAttachedBlock().Equals(this)) {
+						if (c1.DistanceTo(c) > 0.0001f) {
+							c.GetAttachedBlock().ApplyDelta(c.AbsolutePosition() - c1.AbsolutePosition());
+						}
+					}
+				}
+			}		
+		}
+			
 	}
 
 	public bool TryAttachInSomeConnectionWithBlock (Block block) {
@@ -188,26 +256,55 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		return false;
 	}
 
-	public ArrayList DescendingBlocks () {
-		ArrayList arrayList = new ArrayList ();
-		arrayList.Add (this);
+	void LeaveClone () {
+		GameObject go = Instantiate (this.gameObject);
+		
+		go.GetComponent<Block> ().leaveClone = true;
+		
+		go.transform.SetParent (this.transform.parent, false);
+		go.transform.SetSiblingIndex (this.transform.GetSiblingIndex ());
+		
+		go.GetComponent<RectTransform> ().anchoredPosition = this.rectTransform.anchoredPosition;
+		go.GetComponent<RectTransform> ().sizeDelta = this.rectTransform.sizeDelta;
+		go.GetComponent<RectTransform> ().anchorMin = this.rectTransform.anchorMin;
+		go.GetComponent<RectTransform> ().anchorMax = this.rectTransform.anchorMax;
+	}
 
-		for (int i = 1; i < this.connections.Count; ++i) {
-			Connection connection = this.connections[i] as Connection;
+	bool DestroyHierarchyIfNeeded () {
+		GameObject codeContentGO = CodeContent();
+		
+		RectTransform rect 	= codeContentGO.GetComponent<RectTransform> ();
+		Vector2 mousePos 	= new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
+		
+		if (RectTransformUtility.RectangleContainsScreenPoint(rect, mousePos)) {
 
-			if (connection.GetAttachedBlock() != null && connection.GetAttachedBlock().Equals(this) == false) {
-				ArrayList descendingBlocks = connection.GetAttachedBlock().DescendingBlocks();
-				foreach (Block block in descendingBlocks) {
-					arrayList.Add(block);
-				}
+			ArrayList descending = DescendingBlocks ();
+			foreach (Block block in descending) {
+				Vector3 previousPosition = block.transform.position;
+				block.transform.SetParent(codeContentGO.transform, false);
+				block.transform.position = previousPosition;
 			}
-		}
 
-		return arrayList;
+			return false;
+		}
+		else {
+			// Coloca blocos no topo
+			ArrayList descending = DescendingBlocks ();
+			foreach (Block b in descending) {
+				Destroy(b.gameObject);
+			}
+			
+			return true;
+		}
+	}
+
+	GameObject CodeContent() {
+		return GameObject.FindWithTag ("CodeContent");
 	}
 
 	#region Abstract
 
+	// Todo bloco deve retornar algum código relacionado a ele
 	public abstract string GetCode ();
 
 	#endregion
@@ -216,17 +313,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	
 	public void OnBeginDrag (PointerEventData eventData) {
 		if (this.leaveClone == true) {
-			GameObject go = Instantiate (this.gameObject);
-
-			go.GetComponent<Block> ().leaveClone = true;
-
-			go.transform.SetParent (this.transform.parent, false);
-			go.transform.SetSiblingIndex (this.transform.GetSiblingIndex ());
-
-			go.GetComponent<RectTransform> ().anchoredPosition = this.rectTransform.anchoredPosition;
-			go.GetComponent<RectTransform> ().sizeDelta = this.rectTransform.sizeDelta;
-			go.GetComponent<RectTransform> ().anchorMin = this.rectTransform.anchorMin;
-			go.GetComponent<RectTransform> ().anchorMax = this.rectTransform.anchorMax;
+			LeaveClone();
 
 			this.leaveClone = false;
 		}
@@ -234,21 +321,21 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		// Desconecta do bloco acima
 		this.Detach ();
 
-		Vector3 before = this.transform.position;		
-		this.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);		
-		Vector3 after = this.transform.position;		
-		this.transform.position += (before-after);
-
-		// Deixa todos os blocos descendetes no topo da telas
-		ArrayList descendingBlocks = this.DescendingBlocks ();
+		ArrayList descendingBlocks = this.DescendingBlocks();
 
 		foreach (Block block in descendingBlocks) {
 			block.transform.SetSiblingIndex (block.transform.parent.childCount - 1);
 			block.SetShadowActive (true);
 		}
 
+		foreach (Block b in descendingBlocks) {
+			Vector3 previousPosition = b.transform.position;		
+			b.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);					
+			b.transform.position = previousPosition;
+		}
 	}
-	
+
+	// Movendo bloco
 	Vector3 lastMousePosition = Vector3.zero;
 	public void OnDrag (PointerEventData eventData) {
 
@@ -264,47 +351,25 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public void OnEndDrag (PointerEventData eventData) {
+		if (DestroyHierarchyIfNeeded() == false) {
+			lastMousePosition = Vector3.zero;
 
-		GameObject codeContentGO = GameObject.FindWithTag ("CodeContent");
-		if (transform.parent.gameObject.Equals (codeContentGO) == false) {
-			RectTransform rect = codeContentGO.GetComponent<RectTransform> ();
-			Vector2 mousePos = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
-
-			if (RectTransformUtility.RectangleContainsScreenPoint(rect, mousePos)) {
-				Vector3 previousPosition = this.transform.position;
-				this.transform.SetParent(codeContentGO.transform, false);
-				this.transform.position = previousPosition;
+			ArrayList descendingBlocks = this.DescendingBlocks ();
+			foreach (Block block in descendingBlocks) {
+				block.SetShadowActive(false);
 			}
-			else {
-				// Coloca blocos no topo
-				ArrayList descending = DescendingBlocks ();
-				foreach (Block b in descending) {
-					Destroy(b.gameObject);
+
+			// Tenta conectar com algum bloco
+			Block[] codeContentBlocks =  CodeContent().GetComponentsInChildren<Block>();
+
+			foreach (Block block in codeContentBlocks) {
+				if (this.TryAttachInSomeConnectionWithBlock (block.GetComponent<Block>())) {
+					break;
 				}
-
-				return;
 			}
+
+			Debug.Log (GetCode ());
 		}
-
-		lastMousePosition = Vector3.zero;
-
-		ArrayList descendingBlocks = this.DescendingBlocks ();
-		foreach (Block block in descendingBlocks) {
-			block.SetShadowActive(false);
-		}
-
-		// Tenta conectar com algum bloco
-		GameObject[] GOs = GameObject.FindGameObjectsWithTag ("Block");
-
-		foreach (GameObject GO in GOs) {
-			Block block = GO.GetComponent<Block>() as Block;
-
-			if (this.TryAttachInSomeConnectionWithBlock (block.GetComponent<Block>())) {
-				break;
-			}
-		}
-
-		Debug.Log (GetCode ());
 	}
 
 	#endregion
@@ -319,7 +384,11 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			else {
 				Gizmos.color = Color.red;
 			}
-			Gizmos.DrawSphere(connection.AbsolutePosition(), 10);
+			Gizmos.DrawSphere(connection.AbsolutePosition(), 5);
+
+			if (connection.GetAttachedBlock() != null) {
+				Gizmos.DrawLine(connection.AbsolutePosition(), connection.GetAttachedBlock().transform.position);
+			}
 		}
 	}
 }

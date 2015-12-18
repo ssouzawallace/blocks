@@ -12,8 +12,18 @@ public abstract class NumberBlock : Block {
 	public override void Start () {
 		base.Start ();
 		
-		this.connectionLeft  = new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeNumber, new Vector2 (0, -10));
-		this.connectionRight = new Connection (this, Connection.SocketType.SocketTypeMale, Connection.ConnectionType.ConnectionTypeNumber, new Vector2 (70, -10));
+		this.connectionLeft  = new Connection (this, 
+		                                       Connection.SocketType.SocketTypeMale, 
+		                                       Connection.ConnectionType.ConnectionTypeNumber, 
+		                                       new Vector2 (0.0f, 0.5f),
+		                                       false,
+		                                       false);
+		this.connectionRight = new Connection (this, 
+		                                       Connection.SocketType.SocketTypeMale, 
+		                                       Connection.ConnectionType.ConnectionTypeNumber, 
+		                                       new Vector2 (1.0f, 0.5f),
+		                                       false,
+		                                       false);
 		
 		this.connections.Add(connectionLeft);
 		this.connections.Add(connectionRight);
@@ -38,7 +48,5 @@ public abstract class NumberBlock : Block {
 		else {
 			this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, text.preferredWidth + 20.0f);
 		}
-		
-		this.connectionRight.SetRelativePosition(new Vector2(this.rectTransform.sizeDelta.x, -10));
 	}
 }
