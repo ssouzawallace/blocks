@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class IfThenBlock : Block {
 
@@ -7,6 +8,8 @@ public class IfThenBlock : Block {
 	protected Connection connectionNext;
 	protected Connection connectionThen;
 	protected Connection connectionCondition;
+
+	private float minArgumentImageWidth;
 
 	public override void Start () {
 		base.Start ();
@@ -33,7 +36,7 @@ public class IfThenBlock : Block {
 		this.connectionCondition = new Connection (this, 
 		                                           Connection.SocketType.SocketTypeFemale, 
 		                                           Connection.ConnectionType.ConnectionTypeLogic, 
-		                                           new Vector2 (71, 12));
+		                                           new Vector2 (71, 19.5f));
 
 		this.connections.Add (connectionTop);
 
@@ -41,6 +44,14 @@ public class IfThenBlock : Block {
 		this.connections.Add (connectionCondition);
 
 		this.connections.Add (connectionNext);
+
+		RectTransform[] transforms = gameObject.GetComponentsInChildren<RectTransform>();
+		foreach (RectTransform rectTransf in transforms) {
+			if (rectTransf.gameObject.tag.Equals("Argument")) {
+				minArgumentImageWidth = rectTransf.rect.width;
+				break;
+			}
+		}
 	}
 
 	public override string GetCode () {
@@ -72,7 +83,7 @@ public class IfThenBlock : Block {
 	}
 	
 	protected virtual void AttachmentsMayChanged () {
-		Debug.Log("AUI");
+
 		if (this.connectionThen.GetAttachedBlock () == null) {
 			SetHeight(this.layoutElement.minHeight);
 		}
@@ -89,6 +100,28 @@ public class IfThenBlock : Block {
 			float height = this.layoutElement.minHeight + (thenHeight - singleInstructionHeight);
 
 			SetHeight(height);
+		}
+
+		RefreshWidth();
+	}
+
+	public void RefreshWidth() {
+		if (this.connectionCondition.GetAttachedBlock() == null) {
+			SetWidth(this.layoutElement.minWidth);
+		}
+		else {
+			float conditionWidth = 0.0f;
+			
+			Block block = this.connectionCondition.GetAttachedBlock();
+			
+			while (block != null) {
+				conditionWidth += block.rectTransform.rect.width;
+				block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
+			}
+			
+			float width = this.layoutElement.minWidth + (conditionWidth - this.minArgumentImageWidth);
+			
+			SetWidth(width);
 		}
 	}
 }

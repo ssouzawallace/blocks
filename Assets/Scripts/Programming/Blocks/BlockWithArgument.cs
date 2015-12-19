@@ -7,7 +7,7 @@ public abstract class BlockWithArgument : SimpleInstructionBlock {
 
 	protected Connection argumentConnection;
 	private float minimumArgumentWidth;
-	
+
 	public override void Start () {
 		base.Start ();
 
@@ -29,7 +29,8 @@ public abstract class BlockWithArgument : SimpleInstructionBlock {
 		this.connections.Insert (1, argumentConnection);
 	}
 
-	public override string GetCode () {
+	public override string GetCode ()
+	{
 		throw new System.NotImplementedException ();
 	}
 

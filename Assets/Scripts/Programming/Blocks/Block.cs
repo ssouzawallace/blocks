@@ -248,6 +248,10 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 					if (previousBlock != null) {
 						previousBlock.HierarchyChanged ();
 					}
+					else {
+						SortBlocks();
+						this.HierarchyChanged ();
+					}
 
 					return true;
 				}
@@ -302,6 +306,14 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		return GameObject.FindWithTag ("CodeContent");
 	}
 
+	void SortBlocks() {
+		ArrayList descendingBlocks = this.DescendingBlocks();
+		
+		foreach (Block block in descendingBlocks) {
+			block.transform.SetSiblingIndex (block.transform.parent.childCount - 1);
+		}
+	}
+
 	#region Abstract
 
 	// Todo bloco deve retornar algum código relacionado a ele
@@ -312,6 +324,12 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	#region Drag
 	
 	public void OnBeginDrag (PointerEventData eventData) {
+
+		PalleteScript ps = GameObject.FindWithTag("Blocks Pallete").GetComponent<PalleteScript>();
+		if (ps != null) {
+			ps.BlocksMoving();
+		}
+
 		if (this.leaveClone == true) {
 			LeaveClone();
 
@@ -321,17 +339,16 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		// Desconecta do bloco acima
 		this.Detach ();
 
+		SortBlocks();
+
 		ArrayList descendingBlocks = this.DescendingBlocks();
 
 		foreach (Block block in descendingBlocks) {
-			block.transform.SetSiblingIndex (block.transform.parent.childCount - 1);
 			block.SetShadowActive (true);
-		}
 
-		foreach (Block b in descendingBlocks) {
-			Vector3 previousPosition = b.transform.position;		
-			b.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);					
-			b.transform.position = previousPosition;
+			Vector3 previousPosition = block.transform.position;		
+			block.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);					
+			block.transform.position = previousPosition;
 		}
 	}
 
@@ -351,6 +368,11 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public void OnEndDrag (PointerEventData eventData) {
+		PalleteScript ps = GameObject.FindWithTag("Blocks Pallete").GetComponent<PalleteScript>();
+		if (ps != null) {
+			ps.BlocksDropped();
+		}
+
 		if (DestroyHierarchyIfNeeded() == false) {
 			lastMousePosition = Vector3.zero;
 

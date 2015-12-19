@@ -53,58 +53,51 @@ public class IfThenElseBlock : IfThenBlock {
 	}
 	
 	protected override void AttachmentsMayChanged () {
-		if (this.connectionThen.GetAttachedBlock () == null && this.connectionElse.GetAttachedBlock () == null) {
-			SetHeight(this.layoutElement.minHeight);
+		Block block;
+		float height = 0;
 
-			this.upperLayoutElement.preferredHeight = this.upperLayoutElement.minHeight;
-			this.lowerLayoutElement.preferredHeight = this.lowerLayoutElement.minHeight;
+		float thenHeight = 0.0f;
+		block = this.connectionThen.GetAttachedBlock();
+		while (block != null) {
+			thenHeight += block.rectTransform.rect.height;
+			block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
+		}
 
-			this.connectionElse.SetRelativePosition(new Vector2 (104.5f, elseYMin));
+		float elseHeight = 0.0f;
+		block = this.connectionElse.GetAttachedBlock();
+		while (block != null) {
+			elseHeight += block.rectTransform.rect.height;
+			block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
+		}
+
+		// -- 
+	
+		if (thenHeight > 0) {
+			this.upperLayoutElement.preferredHeight = this.upperLayoutElement.minHeight + (thenHeight - singleInstructionHeight);
+			
+			this.connectionElse.SetRelativePosition(new Vector2(this.connectionElse.GetRelativePosition().x,
+			                                                    elseYMin + (thenHeight - singleInstructionHeight)));
+
+			height -= singleInstructionHeight;
 		}
 		else {
-			Block block;
-			float height = 0;
-
-			float thenHeight = 0.0f;
-			block = this.connectionThen.GetAttachedBlock();
-			while (block != null) {
-				thenHeight += block.rectTransform.rect.height;
-				block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
-			}
-
-			float elseHeight = 0.0f;
-			block = this.connectionElse.GetAttachedBlock();
-			while (block != null) {
-				elseHeight += block.rectTransform.rect.height;
-				block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
-			}
-
-			// -- 
-		
-			if (thenHeight > 0) {
-				this.upperLayoutElement.preferredHeight = this.upperLayoutElement.minHeight + (thenHeight - singleInstructionHeight);
-				
-				this.connectionElse.SetRelativePosition(new Vector2(this.connectionElse.GetRelativePosition().x,
-				                                                    elseYMin + (thenHeight - singleInstructionHeight)));
-
-				height -= singleInstructionHeight;
-			}
-			else {
-				this.upperLayoutElement.preferredHeight = this.upperLayoutElement.minHeight;
-			}
-
-
-			if (elseHeight > 0) {
-				this.lowerLayoutElement.preferredHeight 	= this.lowerLayoutElement.minHeight + (elseHeight - singleInstructionHeight);
-				height -= singleInstructionHeight;
-			}
-			else {
-				this.lowerLayoutElement.preferredHeight = this.lowerLayoutElement.minHeight;
-			}
-
-			height += this.layoutElement.minHeight + thenHeight + elseHeight;
-
-			SetHeight(height);
+			this.upperLayoutElement.preferredHeight = this.upperLayoutElement.minHeight;
+			this.connectionElse.SetRelativePosition(new Vector2 (104.5f, elseYMin));
 		}
+
+
+		if (elseHeight > 0) {
+			this.lowerLayoutElement.preferredHeight 	= this.lowerLayoutElement.minHeight + (elseHeight - singleInstructionHeight);
+			height -= singleInstructionHeight;
+		}
+		else {
+			this.lowerLayoutElement.preferredHeight = this.lowerLayoutElement.minHeight;
+		}
+
+		height += this.layoutElement.minHeight + thenHeight + elseHeight;
+
+		SetHeight(height);
+
+		RefreshWidth();
 	}
 }

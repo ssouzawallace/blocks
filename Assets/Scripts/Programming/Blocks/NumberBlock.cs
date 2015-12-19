@@ -4,6 +4,7 @@ using System.Collections;
 
 
 public abstract class NumberBlock : Block {
+
 	protected Connection connectionLeft;
 	protected Connection connectionRight;
 

@@ -3,13 +3,19 @@ using System.Collections;
 
 public class SetSpeedBlock : BlockWithArgument {
 
-//	// Use this for initialization
-//	public override void Start () {
-//		base.Start ();
-//	}
-//	
-//	// Update is called once per frame
-//	void Update () {
-//	
-//	}
+	public override string GetCode () {
+		string toReturn = "abcd, setpower ";
+		
+		if (this.argumentConnection.GetAttachedBlock() != null) {
+			toReturn += this.argumentConnection.GetAttachedBlock().GetCode();
+		}
+		
+		if (this.connectionNext.GetAttachedBlock() != null) {
+			toReturn += this.connectionNext.GetAttachedBlock().GetCode();
+		}
+
+		toReturn += "\n";
+
+		return toReturn;
+	}
 }

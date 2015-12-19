@@ -48,7 +48,10 @@
      <Compile Include="Assets\Scripts\Programming\Blocks\Block.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\BlockWithArgument.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\ComparatorBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\ConditionBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\ConditionOperatorBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\ConstantNumberBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\ForeverBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\IfThenBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\IfThenElseBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\NumberBlock.cs" />
@@ -59,6 +62,7 @@
      <Compile Include="Assets\Scripts\Programming\Blocks\WhileBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\BlocksPallete.cs" />
      <Compile Include="Assets\Scripts\Programming\PalleteExpand.cs" />
+     <Compile Include="Assets\Scripts\Programming\PalleteScript.cs" />
      <Compile Include="Assets\Scripts\Programming\PalleteSection.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
