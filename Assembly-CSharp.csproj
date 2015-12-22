@@ -64,11 +64,100 @@
      <Compile Include="Assets\Scripts\Programming\PalleteExpand.cs" />
      <Compile Include="Assets\Scripts\Programming\PalleteScript.cs" />
      <Compile Include="Assets\Scripts\Programming\PalleteSection.cs" />
+     <Compile Include="Assets\Scripts\Programming\PythonEditorWindow.cs" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test.xml" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_08.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\extend.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_38.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_25.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_07.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_01.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_14.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_09.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_02.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\help.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_30.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_33.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\lib2to3\Grammar.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_19.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\lib2to3\PatternGrammar.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_39.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test_doctest.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_44.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_27.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\CREDITS.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_05.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_31.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_21.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_11.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_32.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\LICENSE.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_16.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\TODO.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\ieee754.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_28.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test_doctest3.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_03.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_10.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_04.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_12a.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_17.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_36.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_37.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\HISTORY.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_45.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_24.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_13.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_46.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_42.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\floating_points.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_26.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_29.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\README.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\NEWS.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_35.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\tokenize_tests.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_12.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_18.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_34.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_40.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_06.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_23.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_20.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_22.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\cmath_testcases.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_41.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_15.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_43.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test_doctest4.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\exception_hierarchy.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test_doctest2.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="IronPython">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/IronPython.dll</HintPath>
+ </Reference>
+ <Reference Include="IronPython.Modules">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/IronPython.Modules.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Dynamic">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Dynamic.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Scripting.Core">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Scripting.Core.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Scripting.Debugging">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Scripting.Debugging.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Scripting">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Scripting.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Scripting.ExtensionAttribute">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Scripting.ExtensionAttribute.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
