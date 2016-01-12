@@ -1,29 +1,36 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Programming/PythonEditorWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Programming/Blocks/Block.cs">
     <Files>
-      <File FileName="Assets/Scripts/Programming/Blocks/ConstantNumberBlock.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Programming/Blocks/Block.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Programming/BlocksPallete.cs" Line="45" Column="4" />
-      <File FileName="Assets/Scripts/Programming/PythonEditorWindow.cs" Line="63" Column="29" />
+      <File FileName="Assets/Scripts/Programming/Blocks/ConditionBlock.cs" Line="69" Column="1" />
+      <File FileName="Assets/Scripts/Programming/Blocks/NumberOperationBlock.cs" Line="38" Column="4" />
+      <File FileName="Assets/Scripts/Programming/Blocks/Block.cs" Line="242" Column="47" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="Programming" expanded="True">
-                <Node name="PythonEditorWindow.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
+        <State expanded="True" selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Catchpoint exceptionName="System.NullReferenceException" />
+      <Catchpoint exceptionName="System.IO.InternalBufferOverflowException" />
+      <Catchpoint exceptionName="System.OverflowException" />
+      <Catchpoint exceptionName="System.StackOverflowException" />
+      <Catchpoint exceptionName="System.OutOfMemoryException" />
+      <Catchpoint exceptionName="System.InsufficientMemoryException" />
+      <Catchpoint exceptionName="System.AccessViolationException" />
+      <Catchpoint exceptionName="System.FieldAccessException" />
+      <Catchpoint exceptionName="System.MemberAccessException" />
+      <Catchpoint exceptionName="System.MethodAccessException" />
+      <Catchpoint exceptionName="System.Security.AccessControl.PrivilegeNotHeldException" />
+      <Catchpoint exceptionName="System.TypeAccessException" />
+      <Catchpoint exceptionName="System.UnauthorizedAccessException" />
+      <Breakpoint file="/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Scripts/Programming/Blocks/ConditionBlock.cs" line="69" />
+      <Breakpoint file="/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Scripts/Programming/Blocks/Block.cs" line="370" />
+      <Breakpoint file="/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Scripts/Programming/Blocks/Block.cs" line="387" />
+      <Breakpoint file="/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Scripts/Programming/Blocks/Block.cs" line="113" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -10,7 +10,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		const float kMinimumAttachRadius = 20.0f;
 
 		public enum SocketType 				{SocketTypeMale, SocketTypeFemale};
-		public enum ConnectionType		 	{ConnectionTypeRegular, ConnectionTypeLogic, ConnectionTypeNumber};
+		public enum ConnectionType		 	{ConnectionTypeRegular, ConnectionTypeLogic, ConnectionTypeNumber, ConnectionTypeForbidden};
 		public enum RelativePositionType 	{RelativePositionTypeFactor, RelativePositionTypeAbsolute};
 
 		private Block 			attachedBlock;
@@ -233,13 +233,13 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public bool TryAttachInSomeConnectionWithBlock (Block block) {
-		if (this.Equals (block)) {
+		ArrayList descendingBlocks = this.DescendingBlocks ();
+
+		if (descendingBlocks.Contains(block)) {
 			return false;
 		}
 
-		ArrayList descendingBlocks = this.DescendingBlocks ();
-		
-		foreach (Block aBlock in descendingBlocks) {		
+		foreach (Block aBlock in descendingBlocks) {
 			foreach (Connection conection in aBlock.connections) {
 				if (conection.TryAttachWithBlock (block)) {
 					Connection firstConnection = this.connections [0] as Connection;
@@ -292,7 +292,6 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			return false;
 		}
 		else {
-			// Coloca blocos no topo
 			ArrayList descending = DescendingBlocks ();
 			foreach (Block b in descending) {
 				Destroy(b.gameObject);
@@ -390,8 +389,32 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 				}
 			}
 
-			Debug.Log (GetCode ());
+			Debug.Log (IndentLogoCode(GetCode ()));
 		}
+	}
+	string IndentLogoCode (string code) {
+		string toReturn = "";
+		int indentLevel = 0;
+		
+		foreach (char c in code) {
+			if (c == '[') {
+				indentLevel += 1;
+			}
+			if (c == ']' && indentLevel > 0) {
+				indentLevel -= 1;
+				toReturn = toReturn.Substring(0, toReturn.Length-4);
+			}
+			
+			toReturn += c.ToString();
+			
+			if (c == '\n') {
+				for (int i = 0; i < indentLevel; ++i) {
+					toReturn += "    ";
+				}
+			}
+		}
+		
+		return toReturn;
 	}
 
 	#endregion

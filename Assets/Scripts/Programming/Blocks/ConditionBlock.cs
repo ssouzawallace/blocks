@@ -72,7 +72,7 @@ public class ConditionBlock : Block {
 			toReturn += connectionNumberLeft.GetAttachedBlock().GetCode();
 		} 
 
-		toReturn += this.operationString;
+		toReturn += " " + this.operationString + " ";
 
 		if (this.connectionNumberRight.GetAttachedBlock () != null) {
 			toReturn += connectionNumberRight.GetAttachedBlock().GetCode();

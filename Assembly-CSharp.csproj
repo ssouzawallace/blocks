@@ -47,7 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Programming\Blocks\Block.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\BlockWithArgument.cs" />
-     <Compile Include="Assets\Scripts\Programming\Blocks\ComparatorBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\CommandNumberBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\ConditionBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\ConditionOperatorBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\ConstantNumberBlock.cs" />
@@ -56,9 +56,9 @@
      <Compile Include="Assets\Scripts\Programming\Blocks\IfThenElseBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\NumberBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\NumberOperationBlock.cs" />
-     <Compile Include="Assets\Scripts\Programming\Blocks\RandomNumberBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\SetSpeedBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\SimpleInstructionBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\StartBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\Blocks\WhileBlock.cs" />
      <Compile Include="Assets\Scripts\Programming\BlocksPallete.cs" />
      <Compile Include="Assets\Scripts\Programming\PalleteExpand.cs" />
@@ -132,11 +132,17 @@
      <None Include="Assets\Resources\IronPython\Lib\test\test_doctest4.txt" />
      <None Include="Assets\Resources\IronPython\Lib\test\exception_hierarchy.txt" />
      <None Include="Assets\Resources\IronPython\Lib\test\test_doctest2.txt" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="IronPython">
  <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/IronPython.dll</HintPath>
