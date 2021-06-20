@@ -1,0 +1,5 @@
+Assertion failed on expression: 'IsFileCreated(kWorkerLicensePath)'
+
+Assertion failed on expression: 'ok'
+
+Using pre-set license

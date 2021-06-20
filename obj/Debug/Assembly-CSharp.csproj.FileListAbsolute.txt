@@ -1,0 +1,2 @@
+/Users/wallace/Developer/Unity3D/GitHub/blocks-programming/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
+/Users/wallace/Developer/Unity3D/GitHub/blocks-programming/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache

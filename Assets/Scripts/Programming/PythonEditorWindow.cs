@@ -174,7 +174,7 @@ public class PythonEditorWindow : EditorWindow
 			Intepret (_scriptText);  
 		}  
 		// drag the splitter  
-		if (Event.current.isMouse & Event.current.type == EventType.mouseDrag)  
+		if (Event.current.isMouse & Event.current.type == EventType.MouseDrag)  
 		{_historyPaneHeight = (int) Event.current.mousePosition.y - 28;  
 			Repaint();  
 		}  
