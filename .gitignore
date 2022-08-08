@@ -1,3 +1,11 @@
+/Library
+
+*.pyc
+*.pyc.meta
+
+*.pyo
+*.pyo.meta
+
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore

@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_5_2_1;UNITY_5_2;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_REFLECTION_BUFFERS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;UNITY_IPHONE;ENABLE_RUNTIME_GI;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_NETWORK;UNITY_IPHONE_API;UNITY_IOS;ENABLE_TEXTUREID_MAP;PLAYERCONNECTION_LISTENS_FIXED_PORT;DEBUGGER_LISTENS_FIXED_PORT;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_IL2CPP;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_IOS_ON_DEMAND_RESOURCES;ENABLE_IOS_APP_SLICING</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_5_2_3;UNITY_5_2;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_REFLECTION_BUFFERS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;UNITY_IPHONE;ENABLE_RUNTIME_GI;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_NETWORK;ENABLE_LOG_MIXED_STACKTRACE;UNITY_IPHONE_API;UNITY_IOS;ENABLE_TEXTUREID_MAP;PLAYERCONNECTION_LISTENS_FIXED_PORT;DEBUGGER_LISTENS_FIXED_PORT;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_IL2CPP;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_IOS_ON_DEMAND_RESOURCES;ENABLE_IOS_APP_SLICING</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -45,26 +45,125 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Programming\Block Subclasses\BeepBlock.cs" />
-     <Compile Include="Assets\Scripts\Programming\Block Subclasses\ComparatorBlock.cs" />
-     <Compile Include="Assets\Scripts\Programming\Block Subclasses\IfThenBlock.cs" />
-     <Compile Include="Assets\Scripts\Programming\Block Subclasses\IfThenElseThenBlock.cs" />
-     <Compile Include="Assets\Scripts\Programming\Block Subclasses\SimpleInscructionBlock.cs" />
-     <Compile Include="Assets\Scripts\Programming\Block.cs" />
-     <Compile Include="Assets\Scripts\Programming\CanvasScript.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\Block.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\BlockWithArgument.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\CommandNumberBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\ConditionBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\ConditionOperatorBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\ConstantNumberBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\ForeverBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\IfThenBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\IfThenElseBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\NumberBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\NumberOperationBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\SetSpeedBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\SimpleInstructionBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\StartBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\Blocks\WhileBlock.cs" />
+     <Compile Include="Assets\Scripts\Programming\BlocksPallete.cs" />
      <Compile Include="Assets\Scripts\Programming\PalleteExpand.cs" />
+     <Compile Include="Assets\Scripts\Programming\PalleteScript.cs" />
      <Compile Include="Assets\Scripts\Programming\PalleteSection.cs" />
- <Reference Include="UnityEngine.Analytics">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Networking">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+     <Compile Include="Assets\Scripts\Programming\PythonEditorWindow.cs" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test.xml" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_08.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\extend.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_38.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_25.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_07.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_01.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_14.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_09.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_02.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\help.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_30.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_33.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\lib2to3\Grammar.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_19.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\lib2to3\PatternGrammar.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_39.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test_doctest.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_44.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_27.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\CREDITS.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_05.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_31.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_21.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_11.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_32.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\LICENSE.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_16.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\TODO.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\ieee754.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_28.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test_doctest3.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_03.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_10.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_04.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_12a.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_17.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_36.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_37.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\HISTORY.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_45.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_24.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_13.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_46.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_42.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\floating_points.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_26.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_29.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\README.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\idlelib\NEWS.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_35.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\tokenize_tests.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_12.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_18.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_34.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_40.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_06.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_23.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_20.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_22.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\cmath_testcases.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_41.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_15.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\email\test\data\msg_43.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test_doctest4.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\exception_hierarchy.txt" />
+     <None Include="Assets\Resources\IronPython\Lib\test\test_doctest2.txt" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="IronPython">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/IronPython.dll</HintPath>
+ </Reference>
+ <Reference Include="IronPython.Modules">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/IronPython.Modules.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Dynamic">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Dynamic.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Scripting.Core">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Scripting.Core.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Scripting.Debugging">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Scripting.Debugging.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Scripting">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Scripting.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Scripting.ExtensionAttribute">
+ <HintPath>/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Resources/IronPython/Microsoft.Scripting.ExtensionAttribute.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

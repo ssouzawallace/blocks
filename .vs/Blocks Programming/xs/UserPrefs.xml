@@ -1,0 +1,48 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Programming/Blocks/Block.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Programming/Blocks/ConditionBlock.cs" Line="69" Column="1" />
+      <File FileName="Assets/Scripts/Programming/Blocks/NumberOperationBlock.cs" />
+      <File FileName="Assets/Scripts/Programming/Blocks/Block.cs" Line="242" Column="47" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Blocks Programming" expanded="True">
+            <Node name="Assembly-CSharp" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Programming" expanded="True">
+                  <Node name="Blocks" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Catchpoint exceptionName="System.NullReferenceException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.IO.InternalBufferOverflowException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.OverflowException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.StackOverflowException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.OutOfMemoryException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.InsufficientMemoryException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.AccessViolationException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.FieldAccessException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.MemberAccessException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.MethodAccessException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.Security.AccessControl.PrivilegeNotHeldException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.TypeAccessException" includeSubclasses="True" />
+      <Catchpoint exceptionName="System.UnauthorizedAccessException" includeSubclasses="True" />
+      <Breakpoint file="/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Scripts/Programming/Blocks/ConditionBlock.cs" line="69" column="1" />
+      <Breakpoint file="/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Scripts/Programming/Blocks/Block.cs" line="370" column="1" />
+      <Breakpoint file="/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Scripts/Programming/Blocks/Block.cs" line="387" column="1" />
+      <Breakpoint file="/Users/wallace/Developer/Unity Projects/Blocks Programming/Assets/Scripts/Programming/Blocks/Block.cs" line="113" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
