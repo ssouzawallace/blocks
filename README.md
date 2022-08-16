@@ -27,8 +27,9 @@ Mono Framework - [https://www.mono-project.com/download]
 (img)
 
 # Tools
-(img)
-(img)
+![Python Debug Tools](/python-debug-tools.png)
+
+![Debug Tools](/debug-tools.png)
 
 # YouTube Video
 
