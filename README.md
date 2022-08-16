@@ -5,9 +5,9 @@
 
 ## Pre-requisites
 
-[Python 3] - (https://www.python.org/downloads)
-[IronPython 2.7] - (https://ironpython.net)
-[Unity3D] - (https://unity.com/download#how-get-started)
+Python 3 - [https://www.python.org/downloads/]
+IronPython 2.7 - [https://ironpython.net]
+Unity3D - [https://unity.com/download#how-get-started]
 
 ### Useful Tools
 Windows:
@@ -15,11 +15,16 @@ _missing_
 linux:
 _missing_
 macOS:
-[Mono Framework] - (https://www.mono-project.com/download)
+Mono Framework - [https://www.mono-project.com/download]
 
-# Example
+# Use cases
+(img)
+(img)
 (img)
 
+# Tools
+(img)
+(img)
 
 # YouTube Video
 
