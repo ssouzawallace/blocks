@@ -24,7 +24,7 @@ _missing_
 - linux:
 _missing_
 
-macOS:
+- macOS:
 _missing_
 
 # Use cases
