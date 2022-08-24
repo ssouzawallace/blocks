@@ -11,6 +11,8 @@
 
 - [Unity3D](https://unity.com/download#how-get-started)
 
+- [git-lfs](https://git-lfs.github.com)
+
 ### Useful Tools
 - Windows:
 _missing_
