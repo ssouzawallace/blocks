@@ -11,21 +11,17 @@
 
 - [Unity3D](https://unity.com/download#how-get-started)
 
-- [Visual Studio](https://visualstudio.microsoft.com/pt-br/downloads)
-
-- [Mono Framework](https://www.mono-project.com/download)
-
 - [git-lfs](https://git-lfs.github.com)
 
 ### Useful Tools
 - Windows:
-_missing_
+- [Visual Studio](https://visualstudio.microsoft.com/pt-br/downloads)
 
 - linux:
-_missing_
+- [Mono Framework](https://www.mono-project.com/download)
 
 - macOS:
-_missing_
+- [Mono Framework](https://www.mono-project.com/download)
 
 # Use cases
 (img)
