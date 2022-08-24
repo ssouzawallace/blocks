@@ -13,7 +13,7 @@
 
 - [Visual Studio](https://visualstudio.microsoft.com/pt-br/downloads)
 
-- [Mono Framework] - (https://www.mono-project.com/download)
+- [Mono Framework](https://www.mono-project.com/download)
 
 - [git-lfs](https://git-lfs.github.com)
 
