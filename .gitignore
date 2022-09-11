@@ -1,5 +1,7 @@
 /Library
 
+*.DS_Store
+
 *.pyc
 *.pyc.meta
 
