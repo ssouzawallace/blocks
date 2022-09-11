@@ -64,13 +64,3 @@ The following packages were updated:
   com.unity.ide.vscode from version 1.2.3 to 1.2.5
   com.unity.test-framework from version 1.1.24 to 1.1.31
   com.unity.timeline from version 1.4.8 to 1.6.4
-
-=== Sat Sep 10 22:47:20 2022
-
-Packages were changed.
-Update Mode: updateDependencies
-
-The following packages were updated:
-  com.unity.collab-proxy from version 1.17.1 to 1.17.2
-  com.unity.purchasing from version 4.2.1 to 4.4.0
-  com.unity.xr.legacyinputhelpers from version 2.1.9 to 2.1.10

@@ -1,1 +1,7 @@
+# CircleCI configuration file
+version: 2.1
 
+jobs:
+  build:
+    macos:
+      xcode: 13.3.0
