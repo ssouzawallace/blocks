@@ -3,10 +3,13 @@ using UnityEditor;
 using IronPython;  
 using IronPython.Modules;  
 using System.Text;  
-using System.Collections.Generic;  
-using Microsoft.Scripting.Hosting;  
+using System.Collections.Generic;
 
-// derive from EditorWindow for convenience, but this is just a fire-n-forget script  
+#if UNITY_EDITOR
+
+using Microsoft.Scripting.Hosting; 
+
+// derive from EditorWindow for convenience, but this is just a fire-n-forget script
 public class PythonEditorWindow : EditorWindow  
 {  
 	// class member properties
@@ -245,3 +248,4 @@ public class PythonEditorWindow : EditorWindow
 		}  
 	}  
 }  
+#endif
