@@ -5,17 +5,23 @@
 
 ## Pre-requisites
 
-Python 3 - [https://www.python.org/downloads/]
-IronPython 2.7 - [https://ironpython.net]
-Unity3D - [https://unity.com/download#how-get-started]
+- [Python 3](https://www.python.org/downloads/)
+
+- [IronPython 2.7](https://ironpython.net)
+
+- [UnityHub](https://unity.com/download#how-get-started)
+
+- [git-lfs](https://git-lfs.github.com)
 
 ### Useful Tools
-Windows:
-_missing_
-linux:
-_missing_
-macOS:
-Mono Framework - [https://www.mono-project.com/download]
+- Windows:
+- [Visual Studio](https://visualstudio.microsoft.com/pt-br/downloads)
+
+- linux:
+- [Mono Framework](https://www.mono-project.com/download)
+
+- macOS:
+- [Mono Framework](https://www.mono-project.com/download)
 
 # Use cases
 (img)
@@ -23,8 +29,9 @@ Mono Framework - [https://www.mono-project.com/download]
 (img)
 
 # Tools
-(img)
-(img)
+![Python Debug Tools](/python-debug-tools.png)
+
+![Debug Tools](/debug-tools.png)
 
 # YouTube Video
 
