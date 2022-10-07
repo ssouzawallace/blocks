@@ -1,5 +1,6 @@
 ## Unity3D Blocks Programming
 
+![GitHub issues](https://img.shields.io/github/issues/ssouzawallace/blocks?style=flat-square)
 ![Build Status](https://app.bitrise.io/app/af3531b59341cb1e/status.svg?token=W7s1F717RFArFEheo92e2Q&branch=master)
 ![YouTube Video](https://img.shields.io/youtube/views/uAIc0vqwZjI?style=social)
 
