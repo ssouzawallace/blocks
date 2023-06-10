@@ -97,7 +97,7 @@ public class PythonEditorWindow : EditorWindow
 		
 		// load the assemblies for unity, using types  
 		// to resolve assemblies so we don't need to hard code paths  
-		_ScriptEngine.Runtime.LoadAssembly (typeof(PythonFileIOModule).Assembly);  
+		//_ScriptEngine.Runtime.LoadAssembly (typeof(PythonFileIOModule).Assembly);  
 		_ScriptEngine.Runtime.LoadAssembly (typeof(GameObject).Assembly);  
 		_ScriptEngine.Runtime.LoadAssembly (typeof(Editor).Assembly);  
 		string dllpath = System.IO.Path.GetDirectoryName (  
