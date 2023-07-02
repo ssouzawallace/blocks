@@ -4,9 +4,6 @@ using IronPython;
 using IronPython.Modules;  
 using System.Text;  
 using System.Collections.Generic;
-
-#if UNITY_EDITOR
-
 using Microsoft.Scripting.Hosting; 
 
 // derive from EditorWindow for convenience, but this is just a fire-n-forget script
@@ -247,5 +244,4 @@ public class PythonEditorWindow : EditorWindow
 			Repaint ();  
 		}  
 	}  
-}  
-#endif
+}

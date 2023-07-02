@@ -115,7 +115,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {
+<<<<<<< Updated upstream
       "version": "1.9.0",
+=======
+      "version": "1.10.1",
+>>>>>>> Stashed changes
       "depth": 1,
       "source": "registry",
       "dependencies": {
