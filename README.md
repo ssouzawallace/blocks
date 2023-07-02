@@ -33,7 +33,9 @@
 (img)
 
 # Tools
-![Python Debug Tools](/python-debug-tools.png)
+![Logo/Python](/python-editor.png)
+
+![Logo/Python Debug Tools](/python-debug-tools.png)
 
 ![Debug Tools](/debug-tools.png)
 
