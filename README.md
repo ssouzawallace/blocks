@@ -1,5 +1,8 @@
 ## Unity3D Blocks Programming
 
+![GitHub top language](https://img.shields.io/github/languages/top/ssouzawallace/blocks)
+![GitHub language count](https://img.shields.io/github/languages/count/ssouzawallace/blocks?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/ssouzawallace/blocks?style=flat-square)
 ![Build Status](https://app.bitrise.io/app/af3531b59341cb1e/status.svg?token=W7s1F717RFArFEheo92e2Q&branch=master)
 ![YouTube Video](https://img.shields.io/youtube/views/uAIc0vqwZjI?style=social)
 
@@ -30,7 +33,9 @@
 (img)
 
 # Tools
-![Python Debug Tools](/python-debug-tools.png)
+![Logo/Python](/python-editor.png)
+
+![Logo/Python Debug Tools](/python-debug-tools.png)
 
 ![Debug Tools](/debug-tools.png)
 
@@ -43,4 +48,5 @@
 
 Reference:
 
+[LOGO](https://drive.google.com/file/d/1n8DDZ0aUIn60Rc8ioSCqJf3lXcfA7naE/view?usp=sharing)
 [br-gogo](https://br-gogo.sourceforge.net)

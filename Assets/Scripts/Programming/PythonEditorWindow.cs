@@ -1,11 +1,9 @@
-﻿using UnityEngine;  
+using UnityEngine;  
 using UnityEditor;  
 using IronPython;  
 using IronPython.Modules;  
 using System.Text;  
 using System.Collections.Generic;
-
-#if UNITY_EDITOR
 
 using Microsoft.Scripting.Hosting; 
 
@@ -97,7 +95,7 @@ public class PythonEditorWindow : EditorWindow
 		
 		// load the assemblies for unity, using types  
 		// to resolve assemblies so we don't need to hard code paths  
-		_ScriptEngine.Runtime.LoadAssembly (typeof(PythonFileIOModule).Assembly);  
+		//_ScriptEngine.Runtime.LoadAssembly (typeof(PythonFileIOModule).Assembly);  
 		_ScriptEngine.Runtime.LoadAssembly (typeof(GameObject).Assembly);  
 		_ScriptEngine.Runtime.LoadAssembly (typeof(Editor).Assembly);  
 		string dllpath = System.IO.Path.GetDirectoryName (  
@@ -247,5 +245,4 @@ public class PythonEditorWindow : EditorWindow
 			Repaint ();  
 		}  
 	}  
-}  
-#endif
+}
