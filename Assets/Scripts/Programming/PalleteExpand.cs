@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PalleteExpand : MonoBehaviour {
 	ArrayList childrenLayoutElements = new ArrayList ();
-	Button[]		childrenButtons;
+	Button[] childrenButtons;
 
 	public int indexOfExpandedSection = 1;
 		
@@ -13,18 +13,19 @@ public class PalleteExpand : MonoBehaviour {
 		Transform[] childrenTransforms = this.gameObject.GetComponentsInChildren<Transform> ();
 
 		foreach (Transform transf in childrenTransforms) {
-			if (transf.parent == this.transform) {
-				childrenLayoutElements.Add(transf.GetComponent<LayoutElement>());
+			LayoutElement component = null;
+			if (transf.parent == this.transform && transf.TryGetComponent<LayoutElement>(out component)) {
+				childrenLayoutElements.Add(component);
 			}
 		}
 
-		childrenButtons	 		= gameObject.GetComponentsInChildren<Button> ();
+		childrenButtons = gameObject.GetComponentsInChildren<Button> ();
 
 		int i = 0;
 		foreach (Button button in childrenButtons) {
 			int index = i;
 			button.onClick.AddListener(() => {
-				Debug.Log(index);
+				Debug.Log("Section clicked with index: " + index);
 				SectionTapped(index);
 			});
 			i++;
