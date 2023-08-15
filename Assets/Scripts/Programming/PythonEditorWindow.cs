@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;  
 using UnityEditor;  
 using IronPython;  
@@ -26,48 +27,35 @@ public class PythonEditorWindow : EditorWindow
 
 	[MenuItem ("Python/LogoCompileTest")]
 	public static void LogoCompileTest () {
+
 		// create the engine  
-		var ScriptEngine = IronPython.Hosting.Python.CreateEngine();  
-		// and the scope (ie, the python namespace)  
-		var ScriptScope = ScriptEngine.CreateScope();  
+		var ScriptEngine = IronPython.Hosting.Python.CreateEngine();
 
-		// execute a string in the interpreter and grab the variable  
-		string dllpath = System.IO.Path.GetDirectoryName (  
-		                                                  (typeof(ScriptEngine)).Assembly.Location).Replace (  
-		                                                   "\\", "/");  
-		StringBuilder example = new StringBuilder();  
-		example.AppendLine ("import sys");  
-		example.AppendFormat ("sys.path.append(\"{0}\")\n", dllpath + "/Lib");  
-		example.AppendFormat ("sys.path.append(\"{0}\")\n", dllpath + "/DLLs");  
-		example.AppendFormat ("sys.path.append(\"{0}\")\n", dllpath + "/pyLogoCompiler");
-		example.AppendLine("import Compiler");  
-		example.AppendLine("output, ERCP = Compiler.compile()");  
+		ICollection<string> SearchPaths = ScriptEngine.GetSearchPaths();
 
-		var ScriptSource = ScriptEngine.CreateScriptSourceFromString(example.ToString());  
-		ScriptSource.Execute(ScriptScope);  
+		//Path to the folder of greeter.py
+		SearchPaths.Add(Application.dataPath);
 
-		IronPython.Runtime.List came_from_script = ScriptScope.GetVariable<IronPython.Runtime.List>("output");  
+		//Path to the Python standard library
+		SearchPaths.Add(Application.dataPath + @"/Plugins/Lib/");
 
-		IronPython.Runtime.List ERCP = ScriptScope.GetVariable<IronPython.Runtime.List>("ERCP");  
+		//Path to py-yacc
+		SearchPaths.Add(Application.dataPath + @"/pyLogoCompiler/");
 
-		Debug.Log("Saida: ");
-		if (came_from_script != null) {
-			string toLog = "[";
-			foreach (var elem in came_from_script) {
-				toLog += elem.ToString() + " ";
-			}
-			toLog += "]";
-			Debug.Log(toLog);
+		ScriptEngine.SetSearchPaths(SearchPaths);
+
+		dynamic py = ScriptEngine.ExecuteFile(Application.dataPath + @"/pyLogoCompiler/Compiler.py");
+
+		var result = py.compile();
+
+		// Log compiling result
+		string toLog = "[ ";
+		foreach (var element in result) {
+			toLog += element.ToString() + " ";
 		}
-		if (ERCP != null) {
-			string toLog = "[";
-			foreach (var elem in ERCP) {
-				toLog += elem.ToString() + " ";
-			}
-			toLog += "]";
-			Debug.Log(toLog);
-		}
+		toLog += "]";
 
+		Debug.Log("Byte Codes: " + toLog);
 	}
 
 	[MenuItem ("Python/PythonEditorWindow")]
@@ -246,3 +234,4 @@ public class PythonEditorWindow : EditorWindow
 		}  
 	}  
 }
+#endif

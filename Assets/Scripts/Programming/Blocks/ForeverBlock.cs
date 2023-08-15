@@ -12,7 +12,7 @@ public class ForeverBlock : IfThenBlock {
 	}
 	
 	public override string GetCode () {
-		string toReturn = "forever [";
+		string toReturn = "forever [\n";
 		
 		if (this.connectionThen.GetAttachedBlock () != null) {
 			toReturn += this.connectionThen.GetAttachedBlock ().GetCode();

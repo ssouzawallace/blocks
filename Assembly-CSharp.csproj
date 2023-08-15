@@ -69,6 +69,7 @@
     <Compile Include="Assets/Bip.cs" />
     <Compile Include="Assets/Scripts/Programming/Blocks/CommandNumberBlock.cs" />
     <Compile Include="Assets/Scripts/Programming/Blocks/ConditionBlock.cs" />
+    <Compile Include="Assets/PythonExample.cs" />
     <Compile Include="Assets/Scripts/Programming/Blocks/ConditionOperatorBlock.cs" />
     <Compile Include="Assets/Scripts/Programming/Blocks/ForeverBlock.cs" />
     <Compile Include="Assets/Scripts/Programming/Blocks/Block.cs" />
@@ -82,99 +83,27 @@
     <Compile Include="Assets/Scripts/Programming/Blocks/IfThenElseBlock.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_37.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
-    <None Include="Assets/Resources/IronPython/Lib/test/test_doctest4.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_43.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_01.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_44.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_02.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_19.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_36.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_31.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_12a.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_03.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_09.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_30.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_04.txt" />
-    <None Include="Assets/Resources/IronPython/Microsoft.Scripting.Debugging.dll" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_18.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_13.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/lib2to3/Grammar.txt" />
-    <None Include="Assets/Resources/IronPython/Microsoft.Dynamic.dll" />
-    <None Include="Assets/Resources/IronPython/Lib/idlelib/CREDITS.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc" />
-    <None Include="Assets/Resources/IronPython/Lib/lib2to3/PatternGrammar.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_41.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_15.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/test/test_doctest.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_06.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_11.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/idlelib/NEWS.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_12.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_14.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/test/cmath_testcases.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/test/ieee754.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_33.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_32.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_34.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/LICENSE.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_10.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_27.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/test/test_doctest2.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_39.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/test/test.xml" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_46.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_08.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/test/test_doctest3.txt" />
+    <None Include="Assets/Monqo Sci-Fi Car/READ ME!.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/idlelib/help.txt" />
     <None Include="Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_28.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_21.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/test/floating_points.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_17.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/idlelib/TODO.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_40.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc" />
-    <None Include="Assets/Resources/IronPython/IronPython.dll" />
-    <None Include="Assets/Resources/IronPython/Lib/test/exception_hierarchy.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/idlelib/extend.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_24.txt" />
-    <None Include="Assets/Resources/IronPython/Microsoft.Scripting.dll" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_26.txt" />
     <None Include="Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_25.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/idlelib/HISTORY.txt" />
-    <None Include="Assets/Resources/IronPython/Microsoft.Scripting.ExtensionAttribute.dll" />
-    <None Include="Assets/Resources/IronPython/Lib/idlelib/README.txt" />
-    <None Include="Assets/Resources/IronPython/Microsoft.Scripting.Core.dll" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_07.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_42.txt" />
     <None Include="Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/test/tokenize_tests.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_22.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_20.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_38.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_16.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_35.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_29.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_05.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_45.txt" />
-    <None Include="Assets/Resources/IronPython/Lib/email/test/data/msg_23.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
@@ -418,32 +347,35 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>/Applications/Unity/Hub/Editor/2022.3.6f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="IronPython">
+      <HintPath>Assets/Plugins/IronPython.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>Library/PackageCache/com.unity.analytics@3.8.1/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>Library/PackageCache/com.unity.analytics@3.8.1/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Scripting.Debugging">
-      <HintPath>Assets/Resources/IronPython/Microsoft.Scripting.Debugging.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Scripting.ExtensionAttribute">
-      <HintPath>Assets/Plugins/IronPython/Microsoft.Scripting.ExtensionAttribute.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Dynamic">
-      <HintPath>Assets/Resources/IronPython/Microsoft.Dynamic.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Scripting">
-      <HintPath>Assets/Plugins/IronPython/Microsoft.Scripting.dll</HintPath>
+      <HintPath>Assets/Plugins/Microsoft.Scripting.dll</HintPath>
     </Reference>
-    <Reference Include="IronPython">
-      <HintPath>Assets/Resources/IronPython/IronPython.dll</HintPath>
+    <Reference Include="IronPython.SQLite">
+      <HintPath>Assets/Plugins/DLLs/IronPython.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library/PackageCache/com.unity.nuget.newtonsoft-json@3.2.1/Runtime/Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Scripting.Core">
-      <HintPath>Assets/Resources/IronPython/Microsoft.Scripting.Core.dll</HintPath>
+    <Reference Include="IronPython.Wpf">
+      <HintPath>Assets/Plugins/DLLs/IronPython.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Reflection">
+      <HintPath>Assets/Plugins/IKVM.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamic">
+      <HintPath>Assets/Plugins/Microsoft.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.Modules">
+      <HintPath>Assets/Plugins/IronPython.Modules.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>Library/PackageCache/com.unity.analytics@3.8.1/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>

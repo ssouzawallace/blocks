@@ -9,12 +9,13 @@ public class SetSpeedBlock : BlockWithArgument {
 		if (this.argumentConnection.GetAttachedBlock() != null) {
 			toReturn += this.argumentConnection.GetAttachedBlock().GetCode();
 		}
-		
-		if (this.connectionNext.GetAttachedBlock() != null) {
-			toReturn += this.connectionNext.GetAttachedBlock().GetCode();
-		}
 
 		toReturn += "\n";
+
+		if (this.connectionNext.GetAttachedBlock() != null) {
+			toReturn += this.connectionNext.GetAttachedBlock().GetCode();
+			toReturn += "\n";
+		}
 
 		return toReturn;
 	}
