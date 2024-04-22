@@ -11,7 +11,7 @@ Powered by:
 ![UnityBlender](https://github.com/ssouzawallace/blocks/assets/6471118/ef2a3a59-7fe7-4c77-8bc9-a62d4143950c)
 ![Python](https://github.com/ssouzawallace/blocks/assets/6471118/2ef8a0aa-02aa-4759-a4c6-48b0744e3677)
 
-![Image credits](https://twitter.com/sawaratsuki1004)
+[Image credits](https://twitter.com/sawaratsuki1004)
 
 ## Pre-requisites
 
