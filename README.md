@@ -53,7 +53,8 @@ Powered by:
 # Bitrise
 
 
-Reference:
+References:
 
 [LOGO](https://drive.google.com/file/d/1n8DDZ0aUIn60Rc8ioSCqJf3lXcfA7naE/view?usp=sharing)
-[br-gogo](https://br-gogo.sourceforge.net)
+
+[Br-GoGo](https://br-gogo.sourceforge.net)
