@@ -6,12 +6,22 @@
 ![Build Status](https://app.bitrise.io/app/af3531b59341cb1e/status.svg?token=W7s1F717RFArFEheo92e2Q&branch=master)
 ![YouTube Video](https://img.shields.io/youtube/views/uAIc0vqwZjI?style=social)
 
-## Uses
 
 <img src="https://github.com/ssouzawallace/blocks/assets/6471118/ef2a3a59-7fe7-4c77-8bc9-a62d4143950c" alt="UnityBlender" width="256">
 <img src="https://github.com/ssouzawallace/blocks/assets/6471118/2ef8a0aa-02aa-4759-a4c6-48b0744e3677" alt="Python" width="256">
 
 [Image credits](https://twitter.com/sawaratsuki1004)
+
+# YouTube Video
+
+[![Blocks Programming Unity3D](https://img.youtube.com/vi/uAIc0vqwZjI/maxresdefault.jpg)](https://youtu.be/uAIc0vqwZjI)
+
+# Bitrise
+
+Reference:
+
+[Br-GoGo](https://br-gogo.sourceforge.net)
+
 
 ## Pre-requisites
 
@@ -34,25 +44,9 @@
 - macOS:
 - [Mono Framework](https://www.mono-project.com/download)
 
-# Use cases
-(img)
-(img)
-(img)
-
 # Tools
 ![Logo/Python](/python-editor.png)
 
 ![Logo/Python Debug Tools](/python-debug-tools.png)
 
 ![Debug Tools](/debug-tools.png)
-
-# YouTube Video
-
-[![Blocks Programming Unity3D](https://img.youtube.com/vi/uAIc0vqwZjI/maxresdefault.jpg)](https://youtu.be/uAIc0vqwZjI)
-
-# Bitrise
-
-
-Reference:
-
-[Br-GoGo](https://br-gogo.sourceforge.net)
