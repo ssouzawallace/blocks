@@ -44,9 +44,3 @@ Reference:
 - macOS:
 - [Mono Framework](https://www.mono-project.com/download)
 
-# Tools
-![Logo/Python](/python-editor.png)
-
-![Logo/Python Debug Tools](/python-debug-tools.png)
-
-![Debug Tools](/debug-tools.png)
