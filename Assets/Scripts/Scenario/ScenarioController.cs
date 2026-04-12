@@ -47,7 +47,7 @@ public class ScenarioController : MonoBehaviour
         activeScenario = scenario;
         int targetIndex = (int)scenario;
 
-        if (scenarioRoots == null)
+        if (scenarioRoots == null || targetIndex < 0 || targetIndex >= scenarioRoots.Length)
             return;
 
         for (int i = 0; i < scenarioRoots.Length; i++)
