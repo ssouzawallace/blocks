@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -140,7 +140,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	[HideInInspector]
 	public Shadow[] shadows;
 
-	public ArrayList connections = new ArrayList();
+	public List<Connection> connections = new List<Connection>();
 
 	public bool leaveClone = false;
 
@@ -154,7 +154,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public virtual void HierarchyChanged() {
-		Connection firstConnection = this.connections [0] as Connection;
+		Connection firstConnection = this.connections [0];
 
 		if (firstConnection.GetAttachedBlock () != null) {
 			firstConnection.GetAttachedBlock ().HierarchyChanged();
@@ -162,7 +162,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public void Detach () {
-		Connection firstConnection = this.connections [0] as Connection;
+		Connection firstConnection = this.connections [0];
 		Block previousBlock = firstConnection.GetAttachedBlock ();
 		firstConnection.Detach ();
 
@@ -171,26 +171,26 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		}
 	}
 
-	public ArrayList DescendingBlocks () {
-		ArrayList arrayList = new ArrayList ();
-		arrayList.Add (this);
+	public List<Block> DescendingBlocks () {
+		List<Block> list = new List<Block> ();
+		list.Add (this);
 		
 		for (int i = 1; i < this.connections.Count; ++i) {
-			Connection connection = this.connections[i] as Connection;
+			Connection connection = this.connections[i];
 			
 			if (connection.GetAttachedBlock() != null && connection.GetAttachedBlock().Equals(this) == false) {
-				ArrayList descendingBlocks = connection.GetAttachedBlock().DescendingBlocks();
+				List<Block> descendingBlocks = connection.GetAttachedBlock().DescendingBlocks();
 				foreach (Block block in descendingBlocks) {
-					arrayList.Add(block);
+					list.Add(block);
 				}
 			}
 		}
 		
-		return arrayList;
+		return list;
 	}
 
 	public void ApplyDelta(Vector2 delta) {
-		ArrayList descendingBlocks = this.DescendingBlocks ();
+		List<Block> descendingBlocks = this.DescendingBlocks ();
 
 		foreach (Block block in descendingBlocks) {
 			block.transform.position += new Vector3 (delta.x, delta.y);
@@ -233,7 +233,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public bool TryAttachInSomeConnectionWithBlock (Block block) {
-		ArrayList descendingBlocks = this.DescendingBlocks ();
+		List<Block> descendingBlocks = this.DescendingBlocks ();
 
 		if (descendingBlocks.Contains(block)) {
 			return false;
@@ -242,7 +242,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		foreach (Block aBlock in descendingBlocks) {
 			foreach (Connection conection in aBlock.connections) {
 				if (conection.TryAttachWithBlock (block)) {
-					Connection firstConnection = this.connections [0] as Connection;
+					Connection firstConnection = this.connections [0];
 					Block previousBlock = firstConnection.GetAttachedBlock ();
 
 					if (previousBlock != null) {
@@ -282,7 +282,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		
 		if (RectTransformUtility.RectangleContainsScreenPoint(rect, mousePos)) {
 
-			ArrayList descending = DescendingBlocks ();
+			List<Block> descending = DescendingBlocks ();
 			foreach (Block block in descending) {
 				Vector3 previousPosition = block.transform.position;
 				block.transform.SetParent(codeContentGO.transform, false);
@@ -292,7 +292,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 			return false;
 		}
 		else {
-			ArrayList descending = DescendingBlocks ();
+			List<Block> descending = DescendingBlocks ();
 			foreach (Block b in descending) {
 				Destroy(b.gameObject);
 			}
@@ -306,7 +306,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	void SortBlocks() {
-		ArrayList descendingBlocks = this.DescendingBlocks();
+		List<Block> descendingBlocks = this.DescendingBlocks();
 		
 		foreach (Block block in descendingBlocks) {
 			block.transform.SetSiblingIndex (block.transform.parent.childCount - 1);
@@ -340,7 +340,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
 		SortBlocks();
 
-		ArrayList descendingBlocks = this.DescendingBlocks();
+		List<Block> descendingBlocks = this.DescendingBlocks();
 
 		foreach (Block block in descendingBlocks) {
 			block.SetShadowActive (true);
@@ -375,7 +375,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		if (DestroyHierarchyIfNeeded() == false) {
 			lastMousePosition = Vector3.zero;
 
-			ArrayList descendingBlocks = this.DescendingBlocks ();
+			List<Block> descendingBlocks = this.DescendingBlocks ();
 			foreach (Block block in descendingBlocks) {
 				block.SetShadowActive(false);
 			}

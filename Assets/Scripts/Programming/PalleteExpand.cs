@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 [System.Serializable]
 public class PalleteExpand : MonoBehaviour {
-	ArrayList childrenLayoutElements = new ArrayList ();
+	List<LayoutElement> childrenLayoutElements = new List<LayoutElement> ();
 	Button[] childrenButtons;
 
 	public int indexOfExpandedSection = 1;
@@ -36,7 +36,7 @@ public class PalleteExpand : MonoBehaviour {
 	void Update () {
 
 		for (int i = 0; i < this.childrenLayoutElements.Count; ++i) {
-			LayoutElement element = this.childrenLayoutElements[i] as LayoutElement;
+			LayoutElement element = this.childrenLayoutElements[i];
 
 			if (i == this.indexOfExpandedSection) {
 				element.flexibleHeight = 1;
