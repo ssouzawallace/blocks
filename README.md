@@ -31,7 +31,7 @@ Reference:
 
 - [UnityHub](https://unity.com/download#how-get-started)
 
-- _Using Unity Editor 2021.3.9f1_(missing)
+- _Using Unity Editor 6000.2.10f1 (Unity 6.2)_
 
 - [git-lfs](https://git-lfs.github.com)
 

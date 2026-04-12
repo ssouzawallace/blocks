@@ -208,7 +208,7 @@ public class PythonEditorWindow : EditorWindow
 	{  
 		object result = null;  
 		try {  
-			Undo.RegisterSceneUndo ("script");  
+			Undo.RegisterCompleteObjectUndo (Selection.activeGameObject ? Selection.activeGameObject : this, "script");  
 			var scriptSrc = _ScriptEngine.CreateScriptSourceFromString (text_to_interpret);  
 			_historyText += "\n";  
 			_historyText += text_to_interpret;  

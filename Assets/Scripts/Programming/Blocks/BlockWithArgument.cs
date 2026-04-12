@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public abstract class BlockWithArgument : SimpleInstructionBlock {
@@ -47,7 +47,7 @@ public abstract class BlockWithArgument : SimpleInstructionBlock {
 		else {
 			float argumentWidth = 0.0f;
 			
-			ArrayList descendingBlocks = this.argumentConnection.GetAttachedBlock().DescendingBlocks();
+			List<Block> descendingBlocks = this.argumentConnection.GetAttachedBlock().DescendingBlocks();
 			foreach (Block block in descendingBlocks) {
 				argumentWidth += block.rectTransform.rect.width;
 			}
