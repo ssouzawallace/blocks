@@ -77,6 +77,6 @@ public class ColorSensorController : MonoBehaviour
 
         Gizmos.color = isDetecting ? detectedColor : Color.gray;
         Gizmos.DrawRay(transform.position, -transform.up * maxRange);
-        Gizmos.DrawWireSphere(transform.position - transform.up * drawDistance, 0.02f);
+        Gizmos.DrawWireSphere(transform.position - transform.up * maxRange, 0.02f);
     }
 }
