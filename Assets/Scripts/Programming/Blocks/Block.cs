@@ -154,12 +154,9 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public virtual void HierarchyChanged() {
-		if (this.connections.Count == 0) return;
-
-		Connection firstConnection = this.connections [0];
-
-		if (firstConnection.GetAttachedBlock () != null) {
-			firstConnection.GetAttachedBlock ().HierarchyChanged();
+		Block attachedBlock = GetFirstConnectionAttachedBlock();
+		if (attachedBlock != null) {
+			attachedBlock.HierarchyChanged();
 		}
 	}
 
@@ -246,9 +243,7 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		foreach (Block aBlock in descendingBlocks) {
 			foreach (Connection conection in aBlock.connections) {
 				if (conection.TryAttachWithBlock (block)) {
-					Block previousBlock = this.connections.Count > 0
-						? this.connections[0].GetAttachedBlock()
-						: null;
+					Block previousBlock = GetFirstConnectionAttachedBlock();
 
 					if (previousBlock != null) {
 						previousBlock.HierarchyChanged ();
@@ -324,6 +319,14 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	public abstract string GetCode ();
 
 	#endregion
+
+	/// <summary>
+	/// Returns the block attached to the first connection, or null if there are no connections
+	/// or nothing is attached.
+	/// </summary>
+	private Block GetFirstConnectionAttachedBlock() {
+		return this.connections.Count > 0 ? this.connections[0].GetAttachedBlock() : null;
+	}
 
 	#region Drag
 	
