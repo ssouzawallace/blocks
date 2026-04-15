@@ -154,6 +154,8 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public virtual void HierarchyChanged() {
+		if (this.connections.Count == 0) return;
+
 		Connection firstConnection = this.connections [0];
 
 		if (firstConnection.GetAttachedBlock () != null) {
@@ -162,6 +164,8 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public void Detach () {
+		if (this.connections.Count == 0) return;
+
 		Connection firstConnection = this.connections [0];
 		Block previousBlock = firstConnection.GetAttachedBlock ();
 		firstConnection.Detach ();
@@ -242,8 +246,9 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		foreach (Block aBlock in descendingBlocks) {
 			foreach (Connection conection in aBlock.connections) {
 				if (conection.TryAttachWithBlock (block)) {
-					Connection firstConnection = this.connections [0];
-					Block previousBlock = firstConnection.GetAttachedBlock ();
+					Block previousBlock = this.connections.Count > 0
+						? this.connections[0].GetAttachedBlock()
+						: null;
 
 					if (previousBlock != null) {
 						previousBlock.HierarchyChanged ();
@@ -324,9 +329,12 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	
 	public void OnBeginDrag (PointerEventData eventData) {
 
-		PalleteScript ps = GameObject.FindWithTag("Blocks Pallete").GetComponent<PalleteScript>();
-		if (ps != null) {
-			ps.BlocksMoving();
+		GameObject palleteGO = GameObject.FindWithTag("Blocks Pallete");
+		if (palleteGO != null) {
+			PalleteScript ps = palleteGO.GetComponent<PalleteScript>();
+			if (ps != null) {
+				ps.BlocksMoving();
+			}
 		}
 
 		if (this.leaveClone == true) {
@@ -342,11 +350,14 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
 		List<Block> descendingBlocks = this.DescendingBlocks();
 
+		GameObject canvasGO = GameObject.FindWithTag("Canvas");
 		foreach (Block block in descendingBlocks) {
 			block.SetShadowActive (true);
 
-			Vector3 previousPosition = block.transform.position;		
-			block.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);					
+			Vector3 previousPosition = block.transform.position;
+			if (canvasGO != null) {
+				block.transform.SetParent(canvasGO.transform, false);
+			}
 			block.transform.position = previousPosition;
 		}
 	}
@@ -367,9 +378,12 @@ public abstract class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	}
 
 	public void OnEndDrag (PointerEventData eventData) {
-		PalleteScript ps = GameObject.FindWithTag("Blocks Pallete").GetComponent<PalleteScript>();
-		if (ps != null) {
-			ps.BlocksDropped();
+		GameObject palleteGO = GameObject.FindWithTag("Blocks Pallete");
+		if (palleteGO != null) {
+			PalleteScript ps = palleteGO.GetComponent<PalleteScript>();
+			if (ps != null) {
+				ps.BlocksDropped();
+			}
 		}
 
 		if (DestroyHierarchyIfNeeded() == false) {
