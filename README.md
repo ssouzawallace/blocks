@@ -103,3 +103,20 @@ StartBlock.GetCode()
 EditMode unit tests live in `Assets/Tests/EditMode/`. Run them from **Window → General → Test Runner → EditMode** in the Unity Editor.
 
 The tests cover code generation for all block types and the `Connection` attach/detach behaviour.
+
+## Robot Simulation Editor
+
+A live control panel for testing the robot simulation without leaving the Unity Editor.
+
+**Open:** `Window > Blocks > Robot Simulation`
+
+**Features:**
+- **Board power toggle** — powers the `BoardController` on/off; commands are only dispatched when the board is powered.
+- **Configuration panel** — displays the active robot variant, max speed, and lets you switch the active scenario from a dropdown.
+- **D-pad movement controls** — Forward / Backward / Turn Left / Turn Right / Brake buttons, with a speed slider.
+- **Live sensor readings** — ultrasonic sensors shown as distance progress bars; color sensors shown as color swatches with light-level bars. Updates every frame.
+- **LED controls** — per-LED on/off toggle showing current state.
+- **Raw command input** — type any `BoardController` command (e.g. `setpower 3`, `ledon 0`, `beep`) and press Enter or Send.
+- **Log** — timestamped history of all issued commands and events.
+
+> The window requires Play Mode to be active; it shows an info message otherwise.
