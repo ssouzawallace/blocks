@@ -94,6 +94,7 @@ public class IfThenBlock : Block {
 
 			while (block != null) {
 				thenHeight += block.rectTransform.rect.height;
+				if (block.connections.Count == 0) break;
 				block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
 			}
 
@@ -116,6 +117,7 @@ public class IfThenBlock : Block {
 			
 			while (block != null) {
 				conditionWidth += block.rectTransform.rect.width;
+				if (block.connections.Count == 0) break;
 				block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
 			}
 			

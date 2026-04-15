@@ -43,6 +43,8 @@ public abstract class NumberBlock : Block {
 	}
 
 	private void RefreshSize() {
+		if (text == null) return;
+
 		if (text.preferredWidth < 70.0f - 20.0f) {
 			this.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 70);
 		}

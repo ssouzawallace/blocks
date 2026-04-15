@@ -99,6 +99,7 @@ public class ConditionBlock : Block {
 		block = this.connectionNumberLeft.GetAttachedBlock();
 		while (block != null) {
 			leftWidth += block.rectTransform.rect.width;
+			if (block.connections.Count == 0) break;
 			block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
 		}
 		
@@ -106,6 +107,7 @@ public class ConditionBlock : Block {
 		block = this.connectionNumberRight.GetAttachedBlock();
 		while (block != null) {
 			rightWidth += block.rectTransform.rect.width;
+			if (block.connections.Count == 0) break;
 			block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
 		}
 		
