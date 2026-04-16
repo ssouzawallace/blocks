@@ -19,6 +19,7 @@ public class ColorSensorController : MonoBehaviour
     private Color detectedColor = Color.black;
     private float detectedLightLevel;
     private bool isDetecting;
+    private float lastHitDistance;
 
     /// <summary>
     /// Returns the last detected surface color. Returns black if nothing is detected.
@@ -49,6 +50,7 @@ public class ColorSensorController : MonoBehaviour
         if (Physics.Raycast(transform.position, -transform.up, out hit, maxRange, detectionLayers))
         {
             isDetecting = true;
+            lastHitDistance = hit.distance;
 
             Renderer hitRenderer = hit.collider.GetComponent<Renderer>();
             if (hitRenderer != null && hitRenderer.sharedMaterial != null)
@@ -65,6 +67,7 @@ public class ColorSensorController : MonoBehaviour
         else
         {
             isDetecting = false;
+            lastHitDistance = maxRange;
             detectedColor = Color.black;
             detectedLightLevel = 0f;
         }
@@ -76,7 +79,10 @@ public class ColorSensorController : MonoBehaviour
             return;
 
         Gizmos.color = isDetecting ? detectedColor : Color.gray;
-        Gizmos.DrawRay(transform.position, -transform.up * maxRange);
-        Gizmos.DrawWireSphere(transform.position - transform.up * maxRange, 0.02f);
+        Gizmos.DrawRay(transform.position, -transform.up * lastHitDistance);
+        if (isDetecting)
+        {
+            Gizmos.DrawWireSphere(transform.position - transform.up * lastHitDistance, 0.02f);
+        }
     }
 }

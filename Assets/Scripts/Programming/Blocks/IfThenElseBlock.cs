@@ -60,6 +60,7 @@ public class IfThenElseBlock : IfThenBlock {
 		block = this.connectionThen.GetAttachedBlock();
 		while (block != null) {
 			thenHeight += block.rectTransform.rect.height;
+			if (block.connections.Count == 0) break;
 			block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
 		}
 
@@ -67,6 +68,7 @@ public class IfThenElseBlock : IfThenBlock {
 		block = this.connectionElse.GetAttachedBlock();
 		while (block != null) {
 			elseHeight += block.rectTransform.rect.height;
+			if (block.connections.Count == 0) break;
 			block = (block.connections[block.connections.Count-1] as Connection).GetAttachedBlock();
 		}
 
