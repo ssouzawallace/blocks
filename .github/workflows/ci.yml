@@ -6,12 +6,35 @@ on:
       - main
       - master
   pull_request:
+    # Run CI on every PR regardless of target branch.
+    # This ensures feature branches (e.g. copilot/*) are tested before merge.
     branches:
-      - main
-      - master
+      - '**'
 
 jobs:
-  test:
+  # ── Blender script validation (Python, no Blender required) ───────────────
+  validate-blender-scripts:
+    name: Validate Blender Python Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Syntax-check all generate_*.py scripts
+        run: |
+          echo "=== Checking Blender script syntax ==="
+          find Assets/Models -name "generate_*.py" | sort | while read f; do
+            python3 -m py_compile "$f" && echo "  OK  $f" || { echo "FAIL $f"; exit 1; }
+          done
+
+      - name: Run Board model hierarchy tests
+        run: |
+          pip install pytest --quiet
+          python3 -m pytest Assets/Tests/Python/ -v --tb=short
+        continue-on-error: false
+
+  # ── Unity EditMode tests ──────────────────────────────────────────────────
+  unity-tests:
     name: Unity EditMode Tests
     runs-on: ubuntu-latest
     permissions:
@@ -39,6 +62,8 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
+          # Unity 6000.2.10f1 matches the project version (ProjectSettings/ProjectVersion.txt)
+          unityVersion: 6000.2.10f1
           testMode: editmode
           artifactsPath: test-results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
