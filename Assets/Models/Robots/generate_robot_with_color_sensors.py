@@ -16,8 +16,8 @@ TwoWheelerWithColorSensors (root – attach RobotController.cs)
   ├─ LED0                ← attach LEDController.cs
   ├─ LED1                ← attach LEDController.cs
   ├─ Speaker             ← attach SpeakerController.cs + AudioSource
-  ├─ ColorSensor0        ← attach ColorSensorController.cs (faces -Y / downward)
-  └─ ColorSensor1        ← attach ColorSensorController.cs (faces -Y / downward)
+  ├─ ColorSensor0        ← attach ColorSensorController.cs (local -Z faces downward after 90° X rotation)
+  └─ ColorSensor1        ← attach ColorSensorController.cs (local -Z faces downward after 90° X rotation)
 """
 
 import bpy
@@ -188,12 +188,11 @@ def build_robot_with_color_sensors():
                       dimensions=(0.04, 0.002, 0.02), parent=root)
     assign_material(speaker, mats["speaker"])
 
-    # ── Color/Light sensors mounted underneath the chassis, facing downward ──
-    # The sensors are placed at the bottom of the chassis and oriented so their
-    # local -Z axis points toward the ground.  ColorSensorController casts a
-    # ray in the -transform.up direction, which is -Y in world space when the
-    # object's up axis is +Y.  We therefore rotate them 90° around X so that
-    # their forward direction becomes downward.
+    # ── Color/Light sensors mounted underneath the chassis, oriented downward ──
+    # The sensors are placed at the bottom of the chassis.
+    # ColorSensorController casts a ray in the -transform.up direction.
+    # Rotating 90° around X makes the sensor's local +Y point toward the ground,
+    # so -transform.up aligns with world -Z (downward).
     sensor_bottom_z = chassis_z - CHASSIS_H / 2 - 0.006   # just below chassis
 
     # Left sensor (sensor 0)

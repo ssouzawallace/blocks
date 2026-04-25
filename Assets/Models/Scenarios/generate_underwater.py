@@ -175,10 +175,10 @@ def build_underwater():
                             location=(cx, cy, 0.35),
                             radius=0.06, depth=0.7, parent=root)
         assign_material(stem, mats["coral_red"] if ci % 2 == 0 else mats["coral_pink"])
-        # Top bulb
-        bulb = add_sphere(f"CoralBulb_{ci}",
+        # Top bulb — parented to the stem so it moves with it
+        bulb = add_sphere(f"Coral_{ci}_Bulb",
                           location=(cx, cy, 0.75),
-                          radius=0.18, parent=root)
+                          radius=0.18, parent=stem)
         assign_material(bulb, mats["coral_pink"] if ci % 2 == 0 else mats["coral_red"])
 
     # Rock pillars (large cylinders – good ultrasonic obstacles)
