@@ -64,7 +64,9 @@ After import you still need to:
   robot root.
 - Wire up the serialized component references on `RobotController`
   (`leftWheel`, `rightWheel`, `leds[]`, `speaker`, etc.).
-- For board models, assign the `RobotController` reference on `BoardController`.
+- For board models, assign the `RobotController` reference on `BoardController`
+  and drag each of the four status-LED GameObjects into the matching
+  `LED Green / Red / Yellow / Blue` fields.
 
 ## Export Guidelines
 
@@ -83,7 +85,12 @@ A circuit board model representing the robot's controller board.
 **Requirements:**
 - Visible microcontroller chip area.
 - Connectors / ports for motors and sensors.
-- Status LED placeholder (named `StatusLED` in hierarchy).
+- Four status LED indicators in a row (named `LED_Green`, `LED_Red`, `LED_Yellow`,
+  `LED_Blue` in the hierarchy) — each attaches `LEDController.cs` automatically.
+  - **Green** = powered on / ready
+  - **Red** = error / powered off
+  - **Yellow** = processing / executing a command
+  - **Blue** = connected to the programming interface
 - Attach `BoardController.cs` to the root GameObject.
 
 ---

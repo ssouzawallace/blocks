@@ -12,7 +12,10 @@ Hierarchy created
 Board (root – attach BoardController.cs)
   ├─ BoardBody
   ├─ CPU
-  ├─ StatusLED          ← attach LEDController.cs
+  ├─ LED_Green          ← status LED green  (attach LEDController.cs)
+  ├─ LED_Red            ← status LED red    (attach LEDController.cs)
+  ├─ LED_Yellow         ← status LED yellow (attach LEDController.cs)
+  ├─ LED_Blue           ← status LED blue   (attach LEDController.cs)
   ├─ SensorPort0        ← sensor connector 0
   ├─ SensorPort1
   ├─ SensorPort2
@@ -123,17 +126,23 @@ def assign_material(obj, mat):
 
 def create_materials():
     mats = {}
-    mats["pcb"]        = new_material("MAT_PCB",        (0.04, 0.25, 0.08), roughness=0.8)
-    mats["chip"]       = new_material("MAT_Chip",       (0.05, 0.05, 0.05), metallic=0.3)
-    mats["connector"]  = new_material("MAT_Connector",  (0.15, 0.15, 0.15), metallic=0.8, roughness=0.3)
-    mats["antenna"]    = new_material("MAT_Antenna",    (0.9,  0.9,  0.9 ), metallic=0.9, roughness=0.2)
-    mats["led_green"]  = new_material("MAT_LED_Green",  (0.0,  1.0,  0.0 ),
-                                      emission_color=(0.0, 1.0, 0.0),
-                                      emission_strength=2.0)
-    mats["led_blue"]   = new_material("MAT_LED_Blue",   (0.0,  0.3,  1.0 ),
-                                      emission_color=(0.0, 0.3, 1.0),
-                                      emission_strength=1.0)
-    mats["gold"]       = new_material("MAT_GoldPin",    (1.0,  0.8,  0.0 ), metallic=1.0, roughness=0.2)
+    mats["pcb"]          = new_material("MAT_PCB",        (0.04, 0.25, 0.08), roughness=0.8)
+    mats["chip"]         = new_material("MAT_Chip",       (0.05, 0.05, 0.05), metallic=0.3)
+    mats["connector"]    = new_material("MAT_Connector",  (0.15, 0.15, 0.15), metallic=0.8, roughness=0.3)
+    mats["antenna"]      = new_material("MAT_Antenna",    (0.9,  0.9,  0.9 ), metallic=0.9, roughness=0.2)
+    mats["led_green"]    = new_material("MAT_LED_Green",  (0.0,  1.0,  0.0 ),
+                                        emission_color=(0.0, 1.0, 0.0),
+                                        emission_strength=2.0)
+    mats["led_red"]      = new_material("MAT_LED_Red",    (1.0,  0.0,  0.0 ),
+                                        emission_color=(1.0, 0.0, 0.0),
+                                        emission_strength=2.0)
+    mats["led_yellow"]   = new_material("MAT_LED_Yellow", (1.0,  0.8,  0.0 ),
+                                        emission_color=(1.0, 0.8, 0.0),
+                                        emission_strength=2.0)
+    mats["led_blue"]     = new_material("MAT_LED_Blue",   (0.0,  0.3,  1.0 ),
+                                        emission_color=(0.0, 0.3, 1.0),
+                                        emission_strength=2.0)
+    mats["gold"]         = new_material("MAT_GoldPin",    (1.0,  0.8,  0.0 ), metallic=1.0, roughness=0.2)
     return mats
 
 
@@ -162,10 +171,23 @@ def build_board():
                   dimensions=(0.02, 0.02, 0.004), parent=root)
     assign_material(cpu, mats["chip"])
 
-    # ── Status LED ───────────────────────────────────────────────────────────
-    status_led = add_sphere("StatusLED", location=(0.06, 0.04, 0.004),
-                            radius=0.004, parent=root)
-    assign_material(status_led, mats["led_green"])
+    # ── Status LEDs (4 indicators in a row near the top-right corner) ────────
+    # Green = powered/ready, Red = error state, Yellow = busy/processing,
+    # Blue = connected to programming interface.
+    # Spacing: 7 mm between centres, starting at x = 0.035.
+    LED_RADIUS  = 0.004
+    LED_HEIGHT  = 0.004   # height above PCB surface
+    LED_ROW_Y   = 0.040   # Y position of the LED row
+    led_configs = [
+        ("LED_Green",  0.035, mats["led_green"]),
+        ("LED_Red",    0.042, mats["led_red"]),
+        ("LED_Yellow", 0.049, mats["led_yellow"]),
+        ("LED_Blue",   0.056, mats["led_blue"]),
+    ]
+    for led_name, lx, mat in led_configs:
+        led_obj = add_sphere(led_name, location=(lx, LED_ROW_Y, LED_HEIGHT),
+                             radius=LED_RADIUS, parent=root)
+        assign_material(led_obj, mat)
 
     # ── Sensor ports (right edge, top half) ─────────────────────────────────
     sensor_y_positions = [0.035, 0.015, -0.015, -0.035]
