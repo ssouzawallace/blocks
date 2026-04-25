@@ -16,6 +16,8 @@ jobs:
   validate-blender-scripts:
     name: Validate Blender Python Scripts
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

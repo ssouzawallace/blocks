@@ -3,7 +3,7 @@ Minimal mock of the `bpy` Blender Python API so that generate_board.py
 can be imported and its logic tested without Blender being installed.
 """
 
-import types, math
+import types
 
 # ── bpy.data ────────────────────────────────────────────────────────────────
 

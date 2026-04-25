@@ -9,15 +9,16 @@ Run from the repo root:
 """
 
 import sys, os, importlib
+from pathlib import Path
 
 # ── Inject mock bpy before importing the board script ─────────────────────
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mock_bpy
 sys.modules["bpy"] = mock_bpy.bpy
 
-# Repo root: Assets/Tests/Python/ is 3 levels deep
-_REPO_ROOT  = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-_SCRIPT_PATH = os.path.join(_REPO_ROOT, "Assets", "Models", "Board", "generate_board.py")
+# Repo root: Assets/Tests/Python/ is 3 levels deep inside Assets/
+_REPO_ROOT   = Path(__file__).resolve().parents[3]
+_SCRIPT_PATH = str(_REPO_ROOT / "Assets" / "Models" / "Board" / "generate_board.py")
 
 
 def _fresh_build():
