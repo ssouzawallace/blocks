@@ -7,6 +7,8 @@ public class ConstantNumberBlock : NumberBlock {
 	public override void Start () {
 		base.Start();
 
+		if (this.text == null) return;
+
 		if (this.leaveClone) {
 			this.text.text = "NÚMERO";
 		}
