@@ -26,7 +26,7 @@ This folder stores screenshots, logs, and recordings that prove the project buil
 # Open in Unity Hub → select Unity 6000.2.10f1
 # File → Build Settings → choose platform → Build
 # OR via command line:
-Unity -batchmode -quit -projectPath . -buildTarget StandaloneWindows64 -logFile build.log
+Unity -batchmode -quit -projectPath . -buildTarget StandaloneWindows64 -buildWindows64Player Builds/Windows64/MyProject.exe -logFile build.log
 ```
 
 ## Notes

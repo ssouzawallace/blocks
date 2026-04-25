@@ -24,13 +24,13 @@
 ### Xcode
 - [ ] Open generated `.xcodeproj` in Xcode
 - [ ] Select correct Team and Signing Certificate
-- [ ] Test on physical device (iPhone/iPad) — Play mode
+- [ ] Run/debug the app on a physical device (iPhone/iPad) and validate behavior
 - [ ] Run all Xcode tests / instruments (Memory, CPU)
 - [ ] Archive: `Product → Archive`
 
 ### App Store Connect
 - [ ] Create new App (or new version) in App Store Connect
-- [ ] Upload build via Xcode Organizer or `altool`/`xcrun notarytool`
+- [ ] Upload build via Xcode Organizer or Transporter
 - [ ] Fill in metadata: name, description, keywords, support URL, privacy URL
 - [ ] Add screenshots (6.7", 5.5", 12.9" iPad sizes at minimum)
 - [ ] Set age rating

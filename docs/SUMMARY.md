@@ -6,7 +6,9 @@ This is a **2D visual block-programming editor** (Scratch-like) for educational 
 
 ---
 
-## Accomplishments (Issue #22)
+## Accomplishments — Controller Layer (Preparatory work for Issue #22)
+
+> **Note:** Issue #22 tracks the creation of interactive Blender 3D models (board, robot, scenarios). The scripts below are the Unity-side controller layer that will drive those models once they are built. Model creation remains an outstanding task (see `docs/NEXT_TASKS.md`).
 
 ### Robot Layer (`Assets/Scripts/Robot/`)
 

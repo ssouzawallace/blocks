@@ -8,7 +8,7 @@ Ordered by priority. Items are sized S (< 1 day), M (1–3 days), L (> 3 days).
 
 - [ ] **[M] Unity scenes & prefabs for robot variants** — Create at least one Unity scene (`Assets/Scenes/Main.unity`) and prefabs for each `RobotVariant` so `RobotController` / `BoardController` can be wired in the Inspector without code.
 - [ ] **[M] Block → Python code generation for new commands** — Extend `BlocksPallete` / Python templates to emit `move_forward()`, `turn_left()`, `set_speed()`, `read_sensor()` calls that map to the `RobotController` API added in issue #22.
-- [ ] **[S] Fix remaining gizmo color bug** — `ColorSensorController.OnDrawGizmos` uses the wrong `drawDistance` field (fixed in this PR); verify no similar issues in `UltrasonicSensorController`.
+- [ ] **[S] Verify gizmo drawDistance fix** — Confirm the `ColorSensorController.OnDrawGizmos` `drawDistance` fix from this PR behaves correctly and check `UltrasonicSensorController` for similar issues.
 - [ ] **[M] PlayMode tests for new controllers** — Add NUnit tests in `Assets/Tests/PlayMode/` for `RobotController`, `BoardController`, `WheelController`, `ColorSensorController`, `ScenarioController` (following the `BlockTestHelper` pattern).
 
 ## Medium Priority
