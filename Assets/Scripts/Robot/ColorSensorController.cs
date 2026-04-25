@@ -79,6 +79,7 @@ public class ColorSensorController : MonoBehaviour
             return;
 
         Gizmos.color = isDetecting ? detectedColor : Color.gray;
+
         Gizmos.DrawRay(transform.position, -transform.up * lastHitDistance);
         if (isDetecting)
         {
