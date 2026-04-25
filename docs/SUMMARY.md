@@ -30,7 +30,7 @@ This is a **2D visual block-programming editor** (Scratch-like) for educational 
 ### Code Quality Improvements
 
 - Removed a redundant ternary in `BoardController.cs`
-- Added array bounds check in `RobotController.SetSpeed`
+- Added array bounds checks in `RobotController` sensor/LED accessors (`ReadColorSensor`, `ReadLightLevel`, `TurnLEDOn/Off`)
 - Fixed undeclared `drawDistance` variable in `ColorSensorController.OnDrawGizmos` → replaced with `maxRange`
 
 ### Infrastructure
