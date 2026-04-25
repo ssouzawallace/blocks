@@ -7,10 +7,66 @@ Refer to [Issue #22](https://github.com/ssouzawallace/blocks/issues/22) for the 
 
 ```
 Assets/Models/
-├── Board/           # Circuit board model
-├── Robots/          # Robot variant models
-└── Scenarios/       # World/environment models
+├── Board/                                    # Circuit board model
+│   └── generate_board.py                     # Blender generation script
+├── Robots/                                   # Robot variant models
+│   ├── generate_robot_two_wheeler.py
+│   ├── generate_robot_with_lcd.py
+│   ├── generate_robot_with_color_sensors.py
+│   ├── generate_robot_with_front_ultrasonic.py
+│   └── generate_robot_with_ultrasonic_array.py
+└── Scenarios/                                # World/environment models
+    ├── generate_classroom.py
+    ├── generate_outdoors.py
+    ├── generate_lava_volcano.py
+    ├── generate_underwater.py
+    ├── generate_beach.py
+    └── generate_store_mall.py
 ```
+
+## Generating Models with the Blender Scripts
+
+Each `generate_*.py` file is a self-contained **Blender Python script** that builds
+the corresponding 3D model programmatically and exports it as an FBX file next to
+the script.
+
+### How to run a script in Blender
+
+1. Open **Blender** (3.x or 4.x).
+2. Open the **Scripting** workspace (top menu → *Scripting*).
+3. Click **Open** and select the `.py` file, **or** paste its contents into the
+   built-in text editor.
+4. Press **Alt+P** (or click **▶ Run Script**).
+5. The script clears the scene, builds the model, and exports an FBX file to the
+   same directory as the script.
+6. Import the generated `.fbx` into Unity (drag it into the `Assets/Models/…`
+   folder in the Project window).
+
+### Automatic Unity component setup
+
+`Assets/Editor/ModelImportSetup.cs` is an `AssetPostprocessor` that runs every
+time an FBX from `Assets/Models/Robots/` or `Assets/Models/Board/` is imported or
+re-imported.  It walks the model hierarchy and automatically attaches the correct
+MonoBehaviour to each named GameObject:
+
+| GameObject name pattern | Component attached |
+|-------------------------|--------------------|
+| `Board`                 | `BoardController`  |
+| Robot root names        | `RobotController`  |
+| `LeftWheel` / `RightWheel` | `WheelController` |
+| `LED*` / `StatusLED`   | `LEDController`    |
+| `Speaker`               | `SpeakerController` + `AudioSource` |
+| `ColorSensor*`          | `ColorSensorController` |
+| `UltrasonicSensor*`     | `UltrasonicSensorController` |
+
+After import you still need to:
+- Assign the **RobotConfiguration** asset to the `RobotController` field on the
+  robot root.
+- Wire up the serialized component references on `RobotController`
+  (`leftWheel`, `rightWheel`, `leds[]`, `speaker`, etc.).
+- For board models, assign the `RobotController` reference on `BoardController`
+  and drag each of the four status-LED GameObjects into the matching
+  `LED Green / Red / Yellow / Blue` fields.
 
 ## Export Guidelines
 
@@ -29,7 +85,12 @@ A circuit board model representing the robot's controller board.
 **Requirements:**
 - Visible microcontroller chip area.
 - Connectors / ports for motors and sensors.
-- Status LED placeholder (named `StatusLED` in hierarchy).
+- Four status LED indicators in a row (named `LED_Green`, `LED_Red`, `LED_Yellow`,
+  `LED_Blue` in the hierarchy) — each attaches `LEDController.cs` automatically.
+  - **Green** = powered on / ready
+  - **Red** = error / powered off
+  - **Yellow** = processing / executing a command
+  - **Blue** = connected to the programming interface
 - Attach `BoardController.cs` to the root GameObject.
 
 ---
