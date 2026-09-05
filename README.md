@@ -1,5 +1,7 @@
 # Unity3D Blocks Programming
 
+A Unity 6 project that turns a visual, block-based language into Logo-like textual code and runs it against a simulated robot in the editor.
+
 ![GitHub top language](https://img.shields.io/github/languages/top/ssouzawallace/blocks)
 ![GitHub language count](https://img.shields.io/github/languages/count/ssouzawallace/blocks?style=flat-square)
 ![GitHub issues](https://img.shields.io/github/issues/ssouzawallace/blocks?style=flat-square)
@@ -12,39 +14,36 @@
 
 [Image credits](https://twitter.com/sawaratsuki1004)
 
-# YouTube Video
+## YouTube Video
 
 [![Blocks Programming Unity3D](https://img.youtube.com/vi/uAIc0vqwZjI/maxresdefault.jpg)](https://youtu.be/uAIc0vqwZjI)
 
-# Bitrise
+## Bitrise
 
 Reference:
 
 [Br-GoGo](https://br-gogo.sourceforge.net)
 
 
-## Pre-requisites
+## Requirements
 
-- [Python 3](https://www.python.org/downloads/)
+- [Unity Hub](https://unity.com/download) with **Unity 6000.2.10f1** (Unity 6.2) — the version pinned in `ProjectSettings/ProjectVersion.txt`
+- [Python 3](https://www.python.org/downloads/) — only to run the model-generation scripts and their tests
 
-- [IronPython 2.7](https://ironpython.net)
+IronPython 2.7 ships with the project in `Assets/Plugins/IronPython/`. There is nothing to install.
 
-- [UnityHub](https://unity.com/download#how-get-started)
+[Blender](https://www.blender.org/download/) 3.x or 4.x is needed only to regenerate the robot, board and scenario models from the `generate_*.py` scripts under `Assets/Models/`. Each script runs from Blender's Script Editor and exports an FBX next to itself.
 
-- _Using Unity Editor 6000.2.10f1 (Unity 6.2)_
+### Editor tooling
 
-- [git-lfs](https://git-lfs.github.com)
+- Windows — [Visual Studio](https://visualstudio.microsoft.com/downloads)
+- Linux and macOS — [Mono](https://www.mono-project.com/download)
 
-### Useful Tools
-- Windows:
-- [Visual Studio](https://visualstudio.microsoft.com/pt-br/downloads)
+## Open and run
 
-- linux:
-- [Mono Framework](https://www.mono-project.com/download)
-
-- macOS:
-- [Mono Framework](https://www.mono-project.com/download)
-
+1. Add the project folder in Unity Hub and open it with Unity 6000.2.10f1
+2. Press Play
+3. Drag blocks from the palette, snap them together, and run the generated program against the simulated robot
 
 ## Architecture Overview
 
