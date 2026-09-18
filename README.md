@@ -18,8 +18,6 @@ A Unity 6 project that turns a visual, block-based language into Logo-like textu
 
 [![Blocks Programming Unity3D](https://img.youtube.com/vi/uAIc0vqwZjI/maxresdefault.jpg)](https://youtu.be/uAIc0vqwZjI)
 
-[![](https://img.youtube.com/vi/BXwNCqbhMls/maxresdefault.jpg)](https://youtu.be/BXwNCqbhMls)
-
 ## Bitrise
 
 Reference:
